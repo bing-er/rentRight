@@ -1,8 +1,10 @@
 package my.bcit.rentright
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.ArrayAdapter
+import android.widget.Button
 import android.widget.Spinner
 
 class LoginActivity : AppCompatActivity() {
@@ -17,5 +19,12 @@ class LoginActivity : AppCompatActivity() {
         )
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         spinner.adapter = adapter
+
+        val button:Button = findViewById(R.id.register_button)
+
+        button.setOnClickListener{
+            val intent = Intent(this, HomePageActivity::class.java )
+            startActivity(intent)
+        }
     }
 }
