@@ -85,13 +85,17 @@
             android:layout_marginTop="16dp" />
 
 
+
         <!-- You are Dropdown -->
-        <Spinner
-            android:id="@+id/userRole"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:entries="@array/user_type" /> <!-- Create a string-array resource with the options "Tenant" and "Landlord" -->
+            <Spinner
+                android:id="@+id/userRole"
+                android:layout_width="match_parent"
+                android:layout_height="55dp"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="32dp"
+                android:entries="@array/user_type"
+                android:background="@drawable/edittext_bg"
+                android:layout_marginTop="16dp"/>
 
         <!-- Get Started Button -->
         <Button
@@ -103,6 +107,7 @@
             android:text="Register"
             android:layout_marginTop="32dp"
             android:textColor="#FFFFFF" />
+
 
     </LinearLayout>
 </ScrollView>
