@@ -13,17 +13,17 @@
         android:theme="@style/Theme.RentRight"
         tools:targetApi="31">
         <activity
-            android:name=".HomePageActivity"
+            android:name=".Views.Activity.HomePageActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".Views.Activity.Signup"
             android:exported="false">
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
         </activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".Views.Activity.Landing"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.RentRight.NoActionBar">

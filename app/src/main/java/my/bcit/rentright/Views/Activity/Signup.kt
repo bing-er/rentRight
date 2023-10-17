@@ -1,4 +1,4 @@
-package my.bcit.rentright
+package my.bcit.rentright.Views.Activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -6,8 +6,9 @@ import android.os.Bundle
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import my.bcit.rentright.R
 
-class LoginActivity : AppCompatActivity() {
+class Signup : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)

@@ -1,7 +1,8 @@
-package my.bcit.rentright
+package my.bcit.rentright.Views.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import my.bcit.rentright.R
 
 class HomePageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
