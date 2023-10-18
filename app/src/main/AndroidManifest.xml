@@ -21,6 +21,9 @@
         android:theme="@style/Theme.RentRight"
         tools:targetApi="31">
         <activity
+            android:name=".Views.Activity.Login"
+            android:exported="false" />
+        <activity
             android:name=".Views.Activity.HomePageActivity"
             android:exported="false" />
         <activity

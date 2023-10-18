@@ -5,32 +5,45 @@ import com.google.android.material.textfield.TextInputLayout
 
 class Validator {
 
-    fun VerifisEmpty(txtName: TextInputEditText, txtNameLayout: TextInputLayout): Boolean {
-        val Value: String = txtName.text.toString().trim()
-        if (Value.isEmpty()) {
-            txtNameLayout.error = "Must Not Be Empty!"
-            return false
-        } else {
-            txtNameLayout.setError(null)
-            txtNameLayout.setErrorEnabled(false)
+    fun verifyIsEmpty(input: TextInputEditText, display: TextInputLayout): Boolean {
+        val value: String = input.text.toString().trim()
+        if (value.isEmpty()) {
+            display.error = "Must Not Be Empty!"
             return true
-        }
-        return true
+        } 
+        display.error = null
+        display.isErrorEnabled = false
+        return false
+        
     }
 
-//    fun ValidatFormatEmail(txtEmail: TextInputEditText, txtEmailLayout: TextInputLayout): Boolean {
-//
-//
-//        val Email: String = txtEmail.text.toString().trim()
-//        if (!(emailRegex.matcher(Email).matches())) {
-//            txtEmailLayout.error = "Email Malformed!"
-//            return false
-//        } else {
-//            txtEmailLayout.setError(null)
-//            txtEmailLayout.setErrorEnabled(false)
-//            return true
-//        }
-//        return true
-//    }
+    fun verifyEmail (inputEmail: TextInputEditText, displayEmail: TextInputLayout): Boolean {
+        val email = inputEmail.text.toString().trim()
+        val regexPattern = Regex("^[A-Za-z0-9+_.-]+@(.+)\$")
+        if (!regexPattern.matches(email)) {
+            displayEmail.error = "Email Malformed!"
+            return false
+        }
+        displayEmail.error = null
+        displayEmail.isErrorEnabled = false
+        return true
+        
+    }
+
+    fun verifyPasswordEqual(inputPassword: TextInputEditText, inputConfirmPassword: TextInputEditText, displayConfirmPassword: TextInputLayout): Boolean{
+        val pwd = inputPassword.text.toString().trim()
+        val confirmPwd = inputConfirmPassword.text.toString().trim()
+
+        if(pwd!=confirmPwd){
+            displayConfirmPassword.error = "Passwords you entered don't match"
+            return false
+        }
+        displayConfirmPassword.error = null
+        displayConfirmPassword.isErrorEnabled = false
+        return true 
+        
+
+
+    }
 
 }

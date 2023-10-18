@@ -3,20 +3,18 @@ package my.bcit.rentright.Views.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.navigation.ui.AppBarConfiguration
 import android.widget.Button
 import my.bcit.rentright.R
-import my.bcit.rentright.databinding.ActivityMainBinding
+import my.bcit.rentright.databinding.ActivityLandingBinding
 
 class Landing : AppCompatActivity() {
 
-    private lateinit var appBarConfiguration: AppBarConfiguration
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var binding: ActivityLandingBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        binding = ActivityMainBinding.inflate(layoutInflater)
+        binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
         val getStartedButton: Button = findViewById(R.id.getStartedButton)
         getStartedButton.setOnClickListener {
