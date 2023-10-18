@@ -29,23 +29,13 @@ class Signup : AppCompatActivity() {
 
     var validator = Validator()
 
-////only checks the filed for now without creating the user ////
+////only checks the fields for now without creating the user ////
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_signup)
         init()
         toLogin()
         toSignup()
-
-
-//        val spinner: Spinner = findViewById(R.id.userRole)
-//        val adapter = ArrayAdapter.createFromResource(
-//            this,
-//            R.array.user_type, android.R.layout.simple_spinner_item
-//        )
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-//        spinner.adapter = adapter
-
     }
 
     private fun init() {

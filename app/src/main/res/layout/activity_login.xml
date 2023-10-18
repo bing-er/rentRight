@@ -7,9 +7,10 @@
     android:layout_height="match_parent"
     tools:context=".Views.Activity.Login">
 
+<!--    Email -->
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtEmailLayout"
+        android:id="@+id/displayEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -31,19 +32,20 @@
         app:startIconDrawable="@drawable/ic_baseline_contact_mail_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtEmail"
+            android:id="@+id/inputEmail"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
+<!--    Password-->
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtPasswordLayout"
+        android:id="@+id/displayPassword"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtEmailLayout"
+        android:layout_below="@+id/displayEmail"
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
         android:layout_marginTop="-10dp"
@@ -60,7 +62,7 @@
         app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txtPwd"
+            android:id="@+id/inputPassword"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textPassword"
@@ -71,12 +73,12 @@
 
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/loginButton"
         android:layout_width="218dp"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtForgetPassword"
-        android:layout_alignStart="@+id/comboRememberMe"
-        android:layout_alignEnd="@+id/txtForgetPassword"
+        android:layout_below="@+id/displayForgetPassword"
+        android:layout_alignStart="@+id/checkRememberMe"
+        android:layout_alignEnd="@+id/displayForgetPassword"
         android:layout_marginStart="56dp"
         android:layout_marginTop="29dp"
         android:layout_marginEnd="57dp"
@@ -85,17 +87,17 @@
         android:textColor="#ffff" />
 
     <CheckBox
-        android:id="@+id/comboRememberMe"
+        android:id="@+id/checkRememberMe"
         android:layout_width="139dp"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/txtPasswordLayout"
-        android:layout_alignTop="@+id/txtForgetPassword"
-        android:layout_alignBottom="@+id/txtForgetPassword"
+        android:layout_alignStart="@+id/displayPassword"
+        android:layout_alignTop="@+id/displayForgetPassword"
+        android:layout_alignBottom="@+id/displayForgetPassword"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="19dp"
         android:layout_marginBottom="0dp"
-        android:layout_toStartOf="@+id/txtForgetPassword"
+        android:layout_toStartOf="@+id/displayForgetPassword"
         android:buttonTint="#E03941"
         android:minHeight="48dp"
         android:text="@string/remember_me"
@@ -104,11 +106,11 @@
 
 
     <TextView
-        android:id="@+id/txtForgetPassword"
+        android:id="@+id/displayForgetPassword"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtPasswordLayout"
-        android:layout_alignEnd="@+id/txtPasswordLayout"
+        android:layout_below="@+id/displayPassword"
+        android:layout_alignEnd="@+id/displayPassword"
         android:layout_marginTop="-10dp"
         android:layout_marginEnd="0dp"
         android:text="@string/forgot_password"
@@ -120,8 +122,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
-        android:layout_alignParentStart="true"
-        android:layout_marginStart="40dp"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:layout_marginTop="15dp"
         android:text="@string/find_your_perfect_home"
         android:textColor="#172B4D"
