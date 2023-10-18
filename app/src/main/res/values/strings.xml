@@ -9,4 +9,11 @@
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="user_name">User Name</string>
+    <string name="email">Email</string>
+    <string name="find_your_perfect_home">Find Your Perfect Home</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="password">Password</string>
+    <string name="register">Register</string>
 </resources>

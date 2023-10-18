@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/AllOfPageSingUp"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp"
-    android:background="#FFFFFF">
+    tools:context=".Views.Activity.Signup">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,103 +13,176 @@
         android:orientation="vertical"
         android:gravity="center_horizontal">
 
-        <!-- Image -->
+        <!-- Logo -->
         <ImageView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            android:src="@drawable/logo"
-            android:layout_marginTop="16dp"/>
+            android:layout_width="143dp"
+            android:layout_height="142dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/logo" />
 
-        <!-- Title -->
+        <!-- Welcome Message -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Find Your Perfect Home"
+            android:text="@string/find_your_perfect_home"
             android:layout_marginTop="15dp"
             android:textSize="24sp"
+            android:layout_marginBottom="20dp"
             android:textStyle="bold" />
 
-        <!-- Name Input -->
-        <EditText
-            android:id="@+id/TextUserName"
+        <!-- User name -->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/displayName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/edittext_bg"
-            android:drawableStart="@drawable/ic_baseline_person_24"
-            android:drawablePadding="15dp"
-            android:hint="User Name"
-            android:inputType="text"
-            android:layout_marginTop="16dp" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/user_name"
+            app:startIconDrawable="@drawable/ic_baseline_person_24"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="#172B4D"
+            app:boxStrokeWidth="2dp"
+           >
 
-        <!-- Email Input -->
-        <EditText
-            android:id="@+id/editTextEmail"
-            android:layout_width="match_parent"
-            android:hint="Email"
-            android:layout_height="55dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/edittext_bg"
-            android:drawableStart="@drawable/ic_baseline_contact_mail_24"
-            android:drawablePadding="15dp"
-            android:inputType="textEmailAddress"
-            android:layout_marginTop="16dp"
-            />
-
-        <!-- Password Input -->
-        <EditText
-            android:id="@+id/TextPassword"
-            android:hint="Password"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/edittext_bg"
-            android:drawableStart="@drawable/ic_baseline_lock_24"
-            android:drawablePadding="15dp"
-            android:inputType="textPassword"
-            android:layout_marginTop="16dp" />
-
-        <EditText
-            android:id="@+id/ConfirmPassword"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:background="@drawable/edittext_bg"
-            android:hint="Confirm Password"
-            android:drawableStart="@drawable/ic_baseline_lock_24"
-            android:drawablePadding="15dp"
-            android:inputType="textPassword"
-            android:layout_marginTop="16dp" />
-
-
-
-        <!-- You are Dropdown -->
-            <Spinner
-                android:id="@+id/userRole"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputName"
                 android:layout_width="match_parent"
-                android:layout_height="55dp"
-                android:layout_marginStart="32dp"
-                android:layout_marginEnd="32dp"
-                android:entries="@array/user_type"
-                android:background="@drawable/edittext_bg"
-                android:layout_marginTop="16dp"/>
+                android:layout_height="wrap_content"
+                android:inputType="textPersonName"
+                android:maxLength="9" />
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- Get Started Button -->
+        <!--Email-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/displayEmail"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="10dp"
+            android:hint="@string/email"
+            app:startIconDrawable="@drawable/ic_baseline_contact_mail_24"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:boxStrokeColor="#172B4D"
+            app:boxStrokeWidth="2dp">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--Password-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/displayPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/password"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:passwordToggleEnabled="true"
+            app:boxStrokeColor="#172B4D"
+            app:boxStrokeWidth="2dp"
+           >
+
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!--confirm password-->
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/displayConfirmPassword"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="40dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginEnd="40dp"
+            android:layout_marginBottom="20dp"
+            android:hint="@string/confirm_password"
+            app:startIconDrawable="@drawable/ic_baseline_lock_24"
+            app:boxCornerRadiusBottomEnd="20dp"
+            app:boxCornerRadiusBottomStart="20dp"
+            app:boxCornerRadiusTopEnd="20dp"
+            app:boxCornerRadiusTopStart="20dp"
+            app:passwordToggleEnabled="true"
+            app:boxStrokeColor="#172B4D"
+            app:boxStrokeWidth="2dp"
+           >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/inputConfirmPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+<!--        <Spinner-->
+<!--            android:id="@+id/userRole"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="55dp"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:entries="@array/user_type"-->
+<!--            android:layout_marginTop="16dp"/>-->
+
+
+
         <Button
-            android:id="@+id/register_button"
+            android:id="@+id/registerButton"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
             android:background="@drawable/button_bg"
-            android:text="Register"
+            android:text="@string/register"
             android:layout_marginTop="32dp"
             android:textColor="#FFFFFF" />
 
+        <TextView
+            android:id="@+id/loginButton"
+            android:layout_width="353dp"
+            android:layout_height="67dp"
+            android:layout_marginStart="34dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginBottom="12dp"
+            android:gravity="center"
+            android:text="@string/already_have_an_account_login"
+            android:textColor="#9A9898"
+            android:textSize="18sp"
+            />
+
 
     </LinearLayout>
-</ScrollView>
+</RelativeLayout>
