@@ -2,14 +2,13 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/AllOfPageLogin"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".Views.Activity.Login">
 
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/txtEmailLayout"
+        android:id="@+id/displaySignupEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,15 +19,15 @@
         android:layout_marginStart="40dp"
         android:layout_marginTop="5dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="30dp"
         android:hint="@string/email"
         app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:boxStrokeColor="#172B4D"
         app:boxStrokeWidth="2dp"
-        app:startIconDrawable="@drawable/ic_email">
+        app:startIconDrawable="@drawable/ic_baseline_contact_mail_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtEmail"
@@ -43,21 +42,21 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtEmailLayout"
+        android:layout_below="@+id/displaySignupEmail"
         android:layout_gravity="center"
         android:layout_marginStart="40dp"
         android:layout_marginTop="-10dp"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="25dp"
         android:hint="@string/password"
         app:boxCornerRadiusBottomEnd="20dp"
-        app:boxCornerRadiusBottomStart="8dp"
-        app:boxCornerRadiusTopEnd="8dp"
+        app:boxCornerRadiusBottomStart="20dp"
+        app:boxCornerRadiusTopEnd="20dp"
         app:boxCornerRadiusTopStart="20dp"
         app:boxStrokeColor="#172B4D"
         app:boxStrokeWidth="2dp"
         app:passwordToggleEnabled="true"
-        app:startIconDrawable="@drawable/ic_password">
+        app:startIconDrawable="@drawable/ic_baseline_lock_24">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/txtPwd"
@@ -69,24 +68,6 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <ProgressBar
-        android:id="@+id/progressbar_login"
-        android:layout_width="97dp"
-        android:layout_height="50dp"
-        android:layout_above="@+id/txtEmailLayout"
-        android:layout_marginStart="4dp"
-        android:layout_marginBottom="0dp"
-        android:layout_toEndOf="@+id/textView4"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/Redfate7"
-        android:visibility="gone"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.417" />
-
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="218dp"
@@ -95,9 +76,9 @@
         android:layout_alignStart="@+id/comboRememberMe"
         android:layout_alignEnd="@+id/txtForgetPassword"
         android:layout_marginStart="56dp"
-        android:layout_marginTop="29dp"
+        android:layout_marginTop="54dp"
         android:layout_marginEnd="57dp"
-        android:background="@drawable/roundedbuttonred"
+        android:background="@drawable/button_bg"
         android:text="@string/login"
         android:textColor="#ffff" />
 
@@ -134,13 +115,15 @@
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="240dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/imageView"
         android:layout_alignParentStart="true"
-        android:layout_marginStart="40dp"
-        android:layout_marginTop="15dp"
-        android:text="@string/login"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="110dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginBottom="25dp"
+        android:text="@string/find_your_perfect_home"
         android:textColor="#172B4D"
         android:textSize="34sp"
         android:textStyle="bold" />
@@ -149,31 +132,32 @@
         android:id="@+id/btnGoToSignUp"
         android:layout_width="332dp"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/btnLogin"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="438dp"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="12dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="66dp"
         android:gravity="center"
-        android:text="@string/DontHaveAccount"
+        android:text="@string/do_not_have_account_sign_up"
         android:textColor="#9A9898"
-        android:textSize="20sp"
+        android:textSize="30sp"
         app:layout_constraintHorizontal_bias="0.457"
-        tools:ignore="MissingConstraints" />
+        />
 
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="match_parent"
-        android:layout_height="372dp"
+        android:layout_height="400dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginStart="0dp"
         android:layout_marginTop="0dp"
         android:layout_marginEnd="0dp"
-        app:srcCompat="@drawable/femmetransp" />
+        app:srcCompat="@drawable/logo" />
 
 
 </RelativeLayout>
