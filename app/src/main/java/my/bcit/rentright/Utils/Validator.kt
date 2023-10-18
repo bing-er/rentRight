@@ -5,15 +5,15 @@ import com.google.android.material.textfield.TextInputLayout
 
 class Validator {
 
-    fun verifyIsEmpty(input: TextInputEditText, display: TextInputLayout): Boolean {
+    fun verifyIsNotEmpty(input: TextInputEditText, display: TextInputLayout): Boolean {
         val value: String = input.text.toString().trim()
         if (value.isEmpty()) {
-            display.error = "Must Not Be Empty!"
-            return true
+            display.error = "Must Not Be Empty"
+            return false
         } 
         display.error = null
         display.isErrorEnabled = false
-        return false
+        return true
         
     }
 
@@ -21,7 +21,7 @@ class Validator {
         val email = inputEmail.text.toString().trim()
         val regexPattern = Regex("^[A-Za-z0-9+_.-]+@(.+)\$")
         if (!regexPattern.matches(email)) {
-            displayEmail.error = "Email Malformed!"
+            displayEmail.error = "Email Address is not valid"
             return false
         }
         displayEmail.error = null

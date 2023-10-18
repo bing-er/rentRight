@@ -78,15 +78,14 @@ class Signup : AppCompatActivity() {
         getTextWatcherReady()
         registerButton.setOnClickListener{
             val checkList :List<Boolean> = listOf(
-                validator.verifyIsEmpty(inputName, displayName),
-                validator.verifyIsEmpty(inputEmail, displayEmail),
-                validator.verifyIsEmpty(inputPassword, displayPassword),
-                validator.verifyIsEmpty(inputConfirmPassword, displayConfirmPassword),
+                validator.verifyIsNotEmpty(inputName, displayName),
+                validator.verifyIsNotEmpty(inputEmail, displayEmail),
+                validator.verifyIsNotEmpty(inputPassword, displayPassword),
+                validator.verifyIsNotEmpty(inputConfirmPassword, displayConfirmPassword),
                 validator.verifyEmail(inputEmail, displayEmail),
                 validator.verifyPasswordEqual(inputPassword, inputConfirmPassword, displayConfirmPassword))
             for(i in checkList.indices) {
                 if (!checkList[i]) {
-                    println("Something is Not Correct!")
                     return@setOnClickListener
                 } else {
                     val intent = Intent(this, HomePageActivity::class.java)
@@ -110,7 +109,7 @@ class Signup : AppCompatActivity() {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable) {
-            validator.verifyIsEmpty(inputName, displayName)
+            validator.verifyIsNotEmpty(inputName, displayName)
 
         }
     }
@@ -118,21 +117,21 @@ class Signup : AppCompatActivity() {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable) {
-            validator.verifyIsEmpty(inputEmail, displayEmail)
+            validator.verifyIsNotEmpty(inputEmail, displayEmail)
         }
     }
     private val passwordInputWatcher: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable) {
-            validator.verifyIsEmpty(inputPassword, displayPassword)
+            validator.verifyIsNotEmpty(inputPassword, displayPassword)
         }
     }
     private val confirmPasswordInputWatcher: TextWatcher = object : TextWatcher {
         override fun beforeTextChanged(s: CharSequence, start: Int, count: Int, after: Int) {}
         override fun onTextChanged(s: CharSequence, start: Int, before: Int, count: Int) {}
         override fun afterTextChanged(s: Editable) {
-            validator.verifyIsEmpty(inputConfirmPassword, displayConfirmPassword)
+            validator.verifyIsNotEmpty(inputConfirmPassword, displayConfirmPassword)
         }
     }
 }
