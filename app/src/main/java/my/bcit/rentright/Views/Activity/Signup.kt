@@ -87,6 +87,8 @@ class Signup : AppCompatActivity() {
         return checkList.all { it }
     }
 
+
+
     private fun getTextWatcherReady() {
         inputName.addTextChangedListener(nameInputWatcher)
         inputEmail.addTextChangedListener(emailInputWatcher)
