@@ -24,7 +24,7 @@ class Signup : AppCompatActivity() {
     private lateinit var inputConfirmPassword: TextInputEditText
 
     private lateinit var registerButton: Button
-    private lateinit var loginButton: TextView
+    private lateinit var loginTxt: TextView
 
 
     var validator = Validator()
@@ -51,14 +51,14 @@ class Signup : AppCompatActivity() {
         inputConfirmPassword = findViewById(R.id.inputConfirmPassword)
 
         registerButton= findViewById(R.id.registerButton)
-        loginButton = findViewById(R.id.loginButton)
+        loginTxt = findViewById(R.id.loginTxt)
 
 
     }
     private fun toLogin()
     {
-        loginButton.setOnClickListener {
-            val intent = Intent(this, Login::class.java).apply {}
+        loginTxt.setOnClickListener {
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
         }

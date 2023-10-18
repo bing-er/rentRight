@@ -171,7 +171,7 @@
             android:textColor="#FFFFFF" />
 
         <TextView
-            android:id="@+id/loginButton"
+            android:id="@+id/loginTxt"
             android:layout_width="353dp"
             android:layout_height="67dp"
             android:layout_marginStart="34dp"

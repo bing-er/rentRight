@@ -22,6 +22,7 @@ class Validator {
         val regexPattern = Regex("^[A-Za-z0-9+_.-]+@(.+)\$")
         if (!regexPattern.matches(email)) {
             displayEmail.error = "Email Address is not valid"
+            displayEmail.isErrorEnabled = true
             return false
         }
         displayEmail.error = null

@@ -22,7 +22,6 @@ class Landing : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         }
     }
 
