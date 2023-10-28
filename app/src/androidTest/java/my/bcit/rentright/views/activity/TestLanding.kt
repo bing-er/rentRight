@@ -38,27 +38,27 @@ class LandingTest {
 
 
     @Test
-    fun checkTitleTextDisplayed() {
+    fun testTitleTextDisplayed() {
         onView(withId(R.id.titleText))
             .check(matches(isDisplayed()))
             .check(matches(withText("Find Your Perfect Stay")))
     }
 
     @Test
-    fun checkSubtitleTextDisplayed() {
+    fun testSubtitleTextDisplayed() {
         onView(withId(R.id.subtitleText))
             .check(matches(isDisplayed()))
             .check(matches(withText("Discover your dream place to live")))
     }
 
     @Test
-    fun checkImageViewDisplayed() {
+    fun testImageViewDisplayed() {
         onView(withId(R.id.imageView))
             .check(matches(isDisplayed()))
     }
 
     @Test
-    fun checkGetStartedButtonClickNavigatesToSignup() {
+    fun testGetStartedButtonClickNavigatesToSignup() {
         Intents.intending(IntentMatchers.hasComponent(Signup::class.java.name)).respondWith(
             Instrumentation.ActivityResult(Activity.RESULT_OK, null))
 
