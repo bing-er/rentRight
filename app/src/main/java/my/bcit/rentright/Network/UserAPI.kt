@@ -7,7 +7,7 @@ import java.util.*
 import kotlin.collections.HashMap
 
 interface UserAPI {
-    @POST("user/login")
+    @POST("user/login/")
     fun login(@Body data:JsonObject): Call<JsonObject>
 
     @POST("user/logout")

@@ -21,7 +21,8 @@ public class RentRightRetrofit {
                     .build();
 
             retrofit =  new Retrofit.Builder()
-                    .baseUrl("http://localhost:7001/")
+                    //.baseUrl("http://108.180.37.115:7001/")
+                    .baseUrl("https://api.doubans.com/v2/movie/zhihu/bases")
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

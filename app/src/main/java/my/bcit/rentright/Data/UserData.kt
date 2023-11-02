@@ -2,7 +2,7 @@ package my.bcit.rentright.Data
 
 class UserData {
 
-    internal var username: String? = null
+    private var username: String? = null
     private var email: String? = null
     private var phone: String? = null
     private var  profilePicture: String? = null
@@ -26,11 +26,11 @@ class UserData {
     }
 
 
-    fun getPassword(): String? {
+    fun getPhone(): String? {
         return phone
     }
 
-    fun setPassword(newPassword: String?) {
+    fun setPhone(newPassword: String?) {
         phone = newPassword
     }
     // Getter avatar

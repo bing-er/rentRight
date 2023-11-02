@@ -11,7 +11,9 @@ import com.google.android.material.textfield.TextInputLayout
 import android.content.SharedPreferences
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.activity.viewModels
 import my.bcit.rentright.R
+import my.bcit.rentright.ViewModels.UserViewModel
 import my.bcit.rentright.Utils.Validator
 
 class Login : AppCompatActivity() {
@@ -27,9 +29,9 @@ class Login : AppCompatActivity() {
 
     private lateinit var checkRememberMe: CheckBox
     private lateinit var displayForgetPassword: TextView
-
     val validator = Validator()
     private lateinit var sharedPreferences: SharedPreferences
+    private val userViewModel by viewModels<UserViewModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,9 +70,11 @@ class Login : AppCompatActivity() {
         loginButton.setOnClickListener{
             if(validator.verifyIsNotEmpty(inputEmail, displayEmail)
                 && validator.verifyIsNotEmpty(inputPassword, displayPassword)){
-                val intent = Intent(this, HomePageActivity::class.java)
-                startActivity(intent)
-                finish()
+                userViewModel.login(inputEmail, inputPassword, this, this )
+
+//                val intent = Intent(this, HomePageActivity::class.java)
+//                startActivity(intent)
+//                finish()
             } else {
                 return@setOnClickListener
             }

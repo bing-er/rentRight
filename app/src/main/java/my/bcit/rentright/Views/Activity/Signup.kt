@@ -6,9 +6,11 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.widget.Button
 import android.widget.TextView
+import androidx.activity.viewModels
 import com.google.android.material.textfield.TextInputEditText
 import com.google.android.material.textfield.TextInputLayout
 import my.bcit.rentright.R
+import my.bcit.rentright.ViewModels.UserViewModel
 import my.bcit.rentright.Utils.Validator
 
 class Signup : AppCompatActivity() {
@@ -25,6 +27,7 @@ class Signup : AppCompatActivity() {
 
     private lateinit var registerButton: Button
     private lateinit var loginTxt: TextView
+    private val userViewModel by viewModels<UserViewModel>()
 
 
     var validator = Validator()
@@ -68,8 +71,12 @@ class Signup : AppCompatActivity() {
         getTextWatcherReady()
         registerButton.setOnClickListener{
                 if(isAllFieldsValid()){
-                    val intent = Intent(this, HomePageActivity::class.java)
-                    startActivity(intent)
+
+                    userViewModel.register(inputName, inputEmail, inputPassword, this, this)
+//                    val intent = Intent(this, HomePageActivity::class.java)
+//                    startActivity(intent)
+
+
                 } else {
                     return@setOnClickListener
                 }
