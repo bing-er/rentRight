@@ -22,7 +22,7 @@ public class RentRightRetrofit {
 
             retrofit =  new Retrofit.Builder()
                     //.baseUrl("http://108.180.37.115:7001/")
-                    .baseUrl("https://api.doubans.com/v2/movie/zhihu/bases")
+                    .baseUrl("https://www.omdbapi.com/?i=tt3896198&apikey=40b8bf6d/")
                     .client(okHttpClient)
                     .addConverterFactory(GsonConverterFactory.create())
                     .build();

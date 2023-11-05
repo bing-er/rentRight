@@ -124,6 +124,17 @@ class UserViewModel: ViewModel() {
     }
 
     fun test() {
+        service?.getMovies()?.enqueue(object : Callback<JsonObject> {
+            override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+                if (response.code() == 200) {
+                    var body = response.body()?.toString()
+                    println("DataBody $body")}
+            }
+
+            override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+                Log.e("not successful ", t.message.toString())
+            }
+        })
 
     }
 

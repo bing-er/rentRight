@@ -70,7 +70,8 @@ class Login : AppCompatActivity() {
         loginButton.setOnClickListener{
             if(validator.verifyIsNotEmpty(inputEmail, displayEmail)
                 && validator.verifyIsNotEmpty(inputPassword, displayPassword)){
-                userViewModel.login(inputEmail, inputPassword, this, this )
+//                userViewModel.login(inputEmail, inputPassword, this, this )
+                userViewModel.test()
 
 //                val intent = Intent(this, HomePageActivity::class.java)
 //                startActivity(intent)
@@ -81,6 +82,10 @@ class Login : AppCompatActivity() {
         }
 
     }
+
+
+
+
 
     private fun getTextWatcherReady() {
         inputEmail.addTextChangedListener(emailInputWatcher)

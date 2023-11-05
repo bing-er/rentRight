@@ -18,8 +18,11 @@ interface UserAPI {
     fun register(@Body data:HashMap<String, String>): Call<JsonObject>
 
 
-    @GET("user/current")
-    fun getCurrent(): Call<JsonObject>
+//    @GET("user/current")
+//    fun getCurrent(): Call<JsonObject>
+
+    @GET("/")
+    fun getMovies(): Call<JsonObject>
 
 
 
