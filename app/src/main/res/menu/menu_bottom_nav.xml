@@ -11,9 +11,9 @@
         android:title="Search" />
 
     <item
-        android:id="@+id/nav_add"
+        android:id="@+id/nav_fav"
         android:icon="@drawable/baseline_favorite_border_24"
-        android:title="Add" />
+        android:title="Favorite" />
 
     <item
         android:id="@+id/nav_notifications"

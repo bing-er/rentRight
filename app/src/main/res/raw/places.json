@@ -1,0 +1,35 @@
+[
+    {
+        "geometry": {
+            "location": {
+                "lat": 49.265090,
+                "lng": -123.008840
+            }
+        },
+        "address": "2181 Madison Ave #707, Burnaby, BC V5C 0N4",
+        "description": "Brand new, stylish concrete high rise located just steps to Gilmore SkyTrain. This 7th floor, East facing unit offers an open floor plan with kitchen island with bar stool seating. Lots of natural light from the large windows. Air conditioning for year round comfort. Name brand appliances and wood flooring throughout. Short distance to the Amazing Brentwood mall. Amenities include gym, party room, BBQ pit and rooftop garden. 24 hours concierge for your peace of mind. Looking for long term tenants.",
+        "rent": 2600
+    },
+    {
+        "geometry": {
+            "location": {
+                "lat": 49.264400,
+                "lng": -122.995240
+            }
+        },
+        "address": "2289 Yukon Crescent #2505, Burnaby, BC V5C 0B2",
+        "description": "Close to Brentwood Mall. Well maintained high-rise. Bright and Spacious For viewings, please text to 778.320.7292",
+        "rent": 2980
+    },
+    {
+        "geometry": {
+            "location": {
+                "lat": 49.266540,
+                "lng": -122.995560
+            }
+        },
+        "address": "4728 Brentwood Dr, Burnaby, BC V5C 4A7",
+        "description": "Minutes to Whole Foods, Shoppers Drug Mart & Madison Centre Shopping Mall, short drive to Costco. Close to Skytrain Station \"Brentwood Town Centre\" by walking within 10 minutes and tons of transit all along Lougheed and Willingdon. There are also numerous restaurants nearby, offering a wide variety of cuisine from different countries.",
+        "rent": 3000
+    }
+]

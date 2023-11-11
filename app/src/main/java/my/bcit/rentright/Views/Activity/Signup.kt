@@ -61,6 +61,8 @@ class Signup : AppCompatActivity() {
     private fun toLogin()
     {
         loginTxt.setOnClickListener {
+
+
             val intent = Intent(this, Login::class.java)
             startActivity(intent)
             finish()
@@ -73,8 +75,6 @@ class Signup : AppCompatActivity() {
                 if(isAllFieldsValid()){
 
                     userViewModel.register(inputName, inputEmail, inputPassword, this, this)
-//                    val intent = Intent(this, HomePageActivity::class.java)
-//                    startActivity(intent)
 
 
                 } else {
@@ -90,6 +90,7 @@ class Signup : AppCompatActivity() {
             validator.verifyIsNotEmpty(inputPassword, displayPassword),
             validator.verifyIsNotEmpty(inputConfirmPassword, displayConfirmPassword),
             validator.verifyEmail(inputEmail, displayEmail),
+            validator.verifyPasswordLength(inputPassword, displayPassword),
             validator.verifyPasswordEqual(inputPassword, inputConfirmPassword, displayConfirmPassword))
         return checkList.all { it }
     }

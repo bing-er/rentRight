@@ -1,6 +1,7 @@
 package my.bcit.rentright.Network
 
 import com.google.gson.JsonObject
+import com.google.gson.JsonElement
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -21,7 +22,7 @@ interface UserAPI {
 //    @GET("user/current")
 //    fun getCurrent(): Call<JsonObject>
 
-    @GET("/")
+    @GET("/?i=tt3896198&apikey=40b8bf6d")
     fun getMovies(): Call<JsonObject>
 
 

@@ -18,7 +18,7 @@ class Landing : AppCompatActivity() {
         setContentView(binding.root)
         val getStartedButton: Button = findViewById(R.id.getStartedButton)
         getStartedButton.setOnClickListener {
-            val intent = Intent(this, Signup::class.java)
+            val intent = Intent(this, Login::class.java)
             startActivity(intent)
         }
         }

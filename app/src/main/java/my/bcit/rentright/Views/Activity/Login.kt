@@ -60,6 +60,7 @@ class Login : AppCompatActivity() {
     private fun toSignup()
     {
         signupButton.setOnClickListener {
+
             val intent = Intent(this, Signup::class.java)
             startActivity(intent)
         }
@@ -70,21 +71,14 @@ class Login : AppCompatActivity() {
         loginButton.setOnClickListener{
             if(validator.verifyIsNotEmpty(inputEmail, displayEmail)
                 && validator.verifyIsNotEmpty(inputPassword, displayPassword)){
-//                userViewModel.login(inputEmail, inputPassword, this, this )
-                userViewModel.test()
+                userViewModel.login(inputEmail, inputPassword, this, this )
 
-//                val intent = Intent(this, HomePageActivity::class.java)
-//                startActivity(intent)
-//                finish()
             } else {
                 return@setOnClickListener
             }
         }
 
     }
-
-
-
 
 
     private fun getTextWatcherReady() {
