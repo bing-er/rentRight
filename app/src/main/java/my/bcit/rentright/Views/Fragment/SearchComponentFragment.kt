@@ -25,10 +25,10 @@ class SearchComponentFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val items = listOf("Search Item 1", "Search Item 2", "Search Item 3")
+        val items = listOf("City", "Price", "Type")
         val adapter = ArrayAdapter(requireContext(), R.layout.list_item, items)
 
-        val autoCompleteTextView = view.findViewById<AutoCompleteTextView>(R.id.active_dropdown)
+        val autoCompleteTextView = view.findViewById<AutoCompleteTextView>(R.id.actv_search_param)
         autoCompleteTextView.setAdapter(adapter)
     }
 

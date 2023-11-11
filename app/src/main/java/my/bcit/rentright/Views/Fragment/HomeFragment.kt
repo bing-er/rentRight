@@ -34,6 +34,11 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val searchFragment = SearchComponentFragment()
+        childFragmentManager.beginTransaction()
+            .add(R.id.search_fragment_container, searchFragment)
+            .commit()
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync { googleMap ->
             addMarkers(googleMap)
@@ -46,12 +51,7 @@ class HomeFragment : Fragment() {
 
         }
 
-        if (childFragmentManager.findFragmentById(R.id.search_fragment_container) == null) {
-            val searchFragment = SearchComponentFragment()
-            childFragmentManager.beginTransaction()
-                .add(R.id.search_fragment_container, searchFragment)
-                .commit()
-        }
+
     }
 
     private fun addMarkers(googleMap: GoogleMap) {
