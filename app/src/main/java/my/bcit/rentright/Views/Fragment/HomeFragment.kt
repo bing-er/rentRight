@@ -12,6 +12,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import my.bcit.rentright.Models.Listing
 import my.bcit.rentright.Views.Activity.place.Place
 import my.bcit.rentright.Views.Activity.place.PlacesReader
 
@@ -21,6 +22,12 @@ class HomeFragment : Fragment() {
 
     private val places: List<Place> by lazy {
         PlacesReader(requireContext()).read()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+
     }
 
 

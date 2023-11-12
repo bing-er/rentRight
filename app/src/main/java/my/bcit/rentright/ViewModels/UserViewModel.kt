@@ -99,6 +99,7 @@ class UserViewModel: ViewModel() {
     private fun storeUserData(userData:JsonObject, context:Context)  {
         if (userData.get("success").asBoolean){
             val user = userData.get("user").asJsonObject
+            var userID = user.asJsonObject.get("_id").asString
             val userName =user.asJsonObject.get("username").asString
             val userEmail = user.asJsonObject.get("email").asString
             val userPhone = user.asJsonObject.get("phone")?.asString
@@ -106,10 +107,12 @@ class UserViewModel: ViewModel() {
                 "Rentright",
                 AppCompatActivity.MODE_PRIVATE
             );
+
             sharedPreferences.edit().apply{
                 putString("userName", userName)
                 putString("userEmail", userEmail)
                 putString("userPhone", userPhone)
+                putString("userID", userID)
 
             }.apply()
 

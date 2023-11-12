@@ -7,6 +7,6 @@ data class User(
     @SerializedName("username") var userName: String,
     @SerializedName("email") var userEmail: String,
     @SerializedName("profilePicture") val userAvatar: String,
-    //@SerializedName("token") val token:String,
+    @SerializedName("token") val token:String,
 ) :  Serializable
 
