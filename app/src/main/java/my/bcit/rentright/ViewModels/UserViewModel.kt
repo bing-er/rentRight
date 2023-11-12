@@ -44,22 +44,7 @@ class UserViewModel: ViewModel() {
 
                         Log.i("DataBody",  body.toString())
 
-                        val userName =userData.asJsonObject.get("username").asString
-                        val userEmail = userData.asJsonObject.get("email").asString
-                        val userPhone = userData.asJsonObject.get("phone")?.asString
-                       // val userAvatar = userData.asJsonObject.get("profilePicture").asString
-
-                        sharedPreferences = context.getSharedPreferences(
-                            "Rentright",
-                            AppCompatActivity.MODE_PRIVATE
-                        );
-                        sharedPreferences.edit().apply{
-                            putString("userName", userName)
-                            putString("userEmail", userEmail)
-                            //putString("avatar", userAvatar)
-                            putString("userPhone", userPhone)
-
-                        }.apply()
+                        storeUserData(userData, context)
 
                         CustomToast(context, "Login Successful!","GREEN").show()
                         getReady.goToHomePage(context, activity)
@@ -106,10 +91,29 @@ class UserViewModel: ViewModel() {
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
-/////////////////// add for now /////////////////
 
             }
         })
+    }
+
+    private fun storeUserData(userData:JsonObject, context:Context)  {
+        if (userData.get("success").asBoolean){
+            val user = userData.get("user").asJsonObject
+            val userName =user.asJsonObject.get("username").asString
+            val userEmail = user.asJsonObject.get("email").asString
+            val userPhone = user.asJsonObject.get("phone")?.asString
+            sharedPreferences = context.getSharedPreferences(
+                "Rentright",
+                AppCompatActivity.MODE_PRIVATE
+            );
+            sharedPreferences.edit().apply{
+                putString("userName", userName)
+                putString("userEmail", userEmail)
+                putString("userPhone", userPhone)
+
+            }.apply()
+
+        }
     }
 
 
