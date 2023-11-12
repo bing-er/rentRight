@@ -2,11 +2,10 @@ package my.bcit.rentright.Views.Activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
-import my.bcit.rentright.Models.Listing
+import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.R
 import my.bcit.rentright.Views.Fragment.FavFragment
 import my.bcit.rentright.Views.Fragment.HomeFragment
@@ -16,12 +15,13 @@ import my.bcit.rentright.Views.Fragment.SearchFragment
 
 class HomePageActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
-    private lateinit  var listing: List<Listing>
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
         val bundle = intent.extras
+
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 

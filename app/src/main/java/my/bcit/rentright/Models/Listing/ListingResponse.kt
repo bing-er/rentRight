@@ -1,10 +1,11 @@
-package my.bcit.rentright.Models
+package my.bcit.rentright.Models.Listing
 
+import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
 
-data class Listing(
+data class ListingResponse(
     @SerializedName("publisher")
     @Expose
     var publisher: String? = null,
@@ -17,6 +18,10 @@ data class Listing(
     @Expose
     var images: List<String>? = null,
 
+    @SerializedName("rent")
+    @Expose
+    var rent: Int = 0,
+
     @SerializedName("description")
     @Expose
     var description: String? = null,
@@ -27,7 +32,10 @@ data class Listing(
 
     @SerializedName("category")
     @Expose
-    var category: String? = null
+    var category: String? = null,
+
+
+
 ) {
     data class Location(
         @SerializedName("lat")
@@ -55,4 +63,23 @@ data class Listing(
         var zip: String? = null
     )
 }
+
+fun ListingResponse.toListing(): Listing = Listing(
+    publisher = publisher ?: "",
+    title = title ?: "",
+    images = images ?: emptyList(),
+    description = description ?: "",
+    category = category ?: "",
+    rent = rent,
+    latLng = LatLng(
+        location?.lat ?: 0.0,
+        location?.lon ?: 0.0
+    ),
+
+    address = location?.address ?: "",
+    city = location?.city ?: "",
+    state = location?.state ?: "",
+    zip = location?.zip ?: ""
+)
+
 

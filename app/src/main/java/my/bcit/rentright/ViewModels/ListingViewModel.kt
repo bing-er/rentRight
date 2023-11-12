@@ -3,23 +3,19 @@ package my.bcit.rentright.ViewModels
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
-import my.bcit.rentright.Models.Listing
+import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.Network.ListingAPI
 import androidx.lifecycle.ViewModel
 import my.bcit.rentright.Network.RentRightRetrofit
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import my.bcit.rentright.Utils.CustomToast
 import retrofit2.Retrofit
-import retrofit2.Callback
-import retrofit2.Call
-import retrofit2.Response
 
 class ListingViewModel: ViewModel() {
 
     private var retrofit: Retrofit? = RentRightRetrofit.getInstance()
     private val service: ListingAPI? = retrofit?.create(ListingAPI::class.java)
-    val listings: MutableLiveData<List<Listing>?> = MutableLiveData()
+    val listings: MutableLiveData<List<ListingResponse>?> = MutableLiveData()
 
     init {
         getAllListings()

@@ -14,26 +14,28 @@ import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import my.bcit.rentright.Models.Listing
+import my.bcit.rentright.Models.Listing.Listing
+import my.bcit.rentright.Models.Listing.ListingResponse
+import my.bcit.rentright.Models.Listing.toListing
 import my.bcit.rentright.Views.Activity.place.Place
 import my.bcit.rentright.Views.Activity.place.PlacesReader
 
 
 class HomeFragment : Fragment() {
 
+    private lateinit var listings: List<Listing>
 
-    private val places: List<Place> by lazy {
-        PlacesReader(requireContext()).read()
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val gson = Gson()
-        val listingsType = object : TypeToken<List<Listing>>() {}.type
+        val listingsType = object : TypeToken<List<ListingResponse>>() {}.type
         val listingsJson = arguments?.getString("listings_json")
-        val listings: List<Listing>? = listingsJson?.let { json ->
-            gson.fromJson<List<Listing>>(json, listingsType)
+        val listingResponses: List<ListingResponse>? = listingsJson?.let { json ->
+            gson.fromJson(json, listingsType)
         }
+        listings = listingResponses?.map{it.toListing()}!!
+
 
 
     }
@@ -57,10 +59,9 @@ class HomeFragment : Fragment() {
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync { googleMap ->
             addMarkers(googleMap)
-            // Ensure all places are visible in the map.
             googleMap.setOnMapLoadedCallback {
                 val bounds = LatLngBounds.builder()
-                places.forEach { bounds.include(it.latLng) }
+                listings?.forEach { bounds.include(it.latLng) }
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
             }
 
@@ -69,13 +70,14 @@ class HomeFragment : Fragment() {
 
     }
 
+
     private fun addMarkers(googleMap: GoogleMap) {
-        places.forEach { place ->
+        listings?.forEach { listing ->
             googleMap.addMarker(
                 MarkerOptions()
-                    .title("${place.address} ($${place.rent}/Monthly)")
-                    .position(place.latLng)
-                    .snippet(place.description)
+                    .title("${listing.address} ($${listing.rent}/Monthly)")
+                    .position(listing.latLng)
+                    .snippet(listing.description)
             )
         }
     }

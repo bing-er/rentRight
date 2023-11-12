@@ -6,7 +6,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import my.bcit.rentright.databinding.ActivityLandingBinding
 import kotlinx.coroutines.*
-import my.bcit.rentright.Models.Listing
+import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.Network.ListingAPI
 import my.bcit.rentright.Network.RentRightRetrofit
 import my.bcit.rentright.Utils.CustomToast
@@ -27,11 +27,7 @@ class Landing : AppCompatActivity() {
         fetchListings(this)
         binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        val getStartedButton: Button = findViewById(R.id.getStartedButton)
-//        getStartedButton.setOnClickListener {
-//            val intent = Intent(this, Login::class.java)
-//            startActivity(intent)
-//        }
+
         }
 
     private fun fetchListings(context: Context) {
@@ -39,7 +35,7 @@ class Landing : AppCompatActivity() {
             if (!::listingAPI.isInitialized) {
                 listingAPI = retrofit.create(ListingAPI::class.java)
             }
-            val response: Response<List<Listing>> = withContext(Dispatchers.IO) {
+            val response: Response<List<ListingResponse>> = withContext(Dispatchers.IO) {
                 listingAPI.getAllListings()
             }
             if (response.isSuccessful){
@@ -54,7 +50,7 @@ class Landing : AppCompatActivity() {
         }
     }
 
-    private fun navigateToHome(listings: List<Listing>){
+    private fun navigateToHome(listings: List<ListingResponse>){
 
         bundle = Bundle().apply {
             val gson = Gson()
@@ -64,7 +60,6 @@ class Landing : AppCompatActivity() {
         intent = Intent(this, HomePageActivity::class.java)
         intent.putExtras(bundle)
         startActivity(intent)
-
         finish()
         }
     }
