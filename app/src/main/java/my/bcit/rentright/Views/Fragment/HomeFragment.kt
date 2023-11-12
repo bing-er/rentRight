@@ -34,7 +34,7 @@ class HomeFragment : Fragment() {
         val listingResponses: List<ListingResponse>? = listingsJson?.let { json ->
             gson.fromJson(json, listingsType)
         }
-        listings = listingResponses?.map{it.toListing()}!!
+        listings = listingResponses?.map{it.toListing()}?: emptyList()
 
 
 
@@ -66,7 +66,6 @@ class HomeFragment : Fragment() {
             }
 
         }
-
 
     }
 
