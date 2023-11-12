@@ -44,26 +44,24 @@ class UserViewModel: ViewModel() {
 
                         Log.i("DataBody",  body.toString())
 
+                        val userName =userData.asJsonObject.get("username").asString
+                        val userEmail = userData.asJsonObject.get("email").asString
+                        val userPhone = userData.asJsonObject.get("phone")?.asString
+                       // val userAvatar = userData.asJsonObject.get("profilePicture").asString
 
-//                        val userName =userData.asJsonObject.get("username").asString
-//                        val userEmail = userData.asJsonObject.get("email").asString
-//                        val userPhone = userData.asJsonObject.get("phone").asString
-//                        val userAvatar = userData.asJsonObject.get("profilePicture").asString
-//
-//                        sharedPreferences = context.getSharedPreferences(
-//                            "Rentright",
-//                            AppCompatActivity.MODE_PRIVATE
-//                        );
-//                        sharedPreferences.edit().apply{
-//                            putString("userName", userName)
-//                            putString("userEmail", userEmail)
-//                            putString("avatar", userAvatar)
-//                            putString("userPhone", userPhone)
-//
-//                        }.apply()
+                        sharedPreferences = context.getSharedPreferences(
+                            "Rentright",
+                            AppCompatActivity.MODE_PRIVATE
+                        );
+                        sharedPreferences.edit().apply{
+                            putString("userName", userName)
+                            putString("userEmail", userEmail)
+                            //putString("avatar", userAvatar)
+                            putString("userPhone", userPhone)
+
+                        }.apply()
 
                         CustomToast(context, "Login Successful!","GREEN").show()
-//
                         getReady.goToHomePage(context, activity)
                         statusMessage.value = "Sign in successful"
 
@@ -80,10 +78,6 @@ class UserViewModel: ViewModel() {
                 Log.e("Error on Login", t.message.toString())
                 CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
 
-                /////////////////// add for now /////////////////
-//                Handler(Looper.getMainLooper()).postDelayed({
-//                    //getReady.goToHomePage(context,activity)
-//                }, 4500)
             }
         })
     }
