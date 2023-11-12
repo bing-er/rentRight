@@ -12,6 +12,8 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLngBounds
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import my.bcit.rentright.Models.Listing
 import my.bcit.rentright.Views.Activity.place.Place
 import my.bcit.rentright.Views.Activity.place.PlacesReader
@@ -26,6 +28,12 @@ class HomeFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val gson = Gson()
+        val listingsType = object : TypeToken<List<Listing>>() {}.type
+        val listingsJson = arguments?.getString("listings_json")
+        val listings: List<Listing>? = listingsJson?.let { json ->
+            gson.fromJson<List<Listing>>(json, listingsType)
+        }
 
 
     }

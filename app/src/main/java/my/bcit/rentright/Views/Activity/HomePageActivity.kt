@@ -4,6 +4,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
+import my.bcit.rentright.Models.Listing
 import my.bcit.rentright.R
 import my.bcit.rentright.Views.Fragment.FavFragment
 import my.bcit.rentright.Views.Fragment.HomeFragment
@@ -13,18 +16,27 @@ import my.bcit.rentright.Views.Fragment.SearchFragment
 
 class HomePageActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
+    private lateinit  var listing: List<Listing>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home_page)
+        val bundle = intent.extras
 
         bottomNavigationView = findViewById(R.id.bottom_navigation)
-        supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment()).commit();
+
+        supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment()
+            .apply{
+                arguments = bundle
+            }).commit();
+
         bottomNavigationView.setOnItemSelectedListener { item ->
             var selectedFragment: Fragment? = null
             when (item.itemId) {
                 R.id.nav_home -> {
-                    selectedFragment = HomeFragment()
+                    selectedFragment = HomeFragment().apply {
+                        arguments = bundle
+                    }
                 }
 
                 R.id.nav_notifications -> {

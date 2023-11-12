@@ -4,8 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import android.widget.Button
-import my.bcit.rentright.R
 import my.bcit.rentright.databinding.ActivityLandingBinding
 import kotlinx.coroutines.*
 import my.bcit.rentright.Models.Listing
@@ -21,6 +19,7 @@ class Landing : AppCompatActivity() {
     private lateinit var binding: ActivityLandingBinding
     private lateinit var listingAPI: ListingAPI
     private lateinit var retrofit: Retrofit
+    private lateinit var bundle: Bundle
     override fun onCreate(savedInstanceState: Bundle?) {
         retrofit = RentRightRetrofit.getInstance()
         listingAPI = retrofit.create(ListingAPI::class.java)
@@ -28,11 +27,11 @@ class Landing : AppCompatActivity() {
         fetchListings(this)
         binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val getStartedButton: Button = findViewById(R.id.getStartedButton)
-        getStartedButton.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
-        }
+//        val getStartedButton: Button = findViewById(R.id.getStartedButton)
+//        getStartedButton.setOnClickListener {
+//            val intent = Intent(this, Login::class.java)
+//            startActivity(intent)
+//        }
         }
 
     private fun fetchListings(context: Context) {
@@ -56,14 +55,18 @@ class Landing : AppCompatActivity() {
     }
 
     private fun navigateToHome(listings: List<Listing>){
-        val gson = Gson()
-        val listingsJson = gson.toJson(listings)
-        val intent = Intent(this, HomePageActivity::class.java).apply {
-            putExtra("listings_extra", listingsJson)
+
+        bundle = Bundle().apply {
+            val gson = Gson()
+            val listingsJson = gson.toJson(listings)
+            putString("listings_json", listingsJson)
         }
+        intent = Intent(this, HomePageActivity::class.java)
+        intent.putExtras(bundle)
         startActivity(intent)
+
         finish()
-    }
+        }
     }
 
 
