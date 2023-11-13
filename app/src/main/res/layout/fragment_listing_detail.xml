@@ -2,6 +2,7 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/background">
 
     <ImageView
@@ -10,18 +11,18 @@
         android:layout_height="200dp"
         android:scaleType="centerCrop"
         android:src="@drawable/logo"
-        android:contentDescription="TODO" />
+        android:contentDescription="@string/empty" />
 
     <TextView
         android:id="@+id/listing_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="$5,000"
+        android:text=""
         android:textSize="24sp"
         android:layout_gravity="bottom|start"
         android:background="@color/background"
         android:textColor="@android:color/black"
-        android:paddingStart="0dp"
+        android:paddingStart="8dp"
         android:paddingEnd="8dp"
         android:paddingTop="4dp"
         android:paddingBottom="4dp"
@@ -31,7 +32,7 @@
 
 
 
-    <!-- Overlay the ImageButton on the top right of the ImageView -->
+
     <ImageButton
         android:id="@+id/listing_like_button"
         android:layout_width="48dp"
@@ -39,9 +40,11 @@
         android:layout_gravity="top|end"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
+        app:tint="@color/red"
         android:background="?attr/selectableItemBackgroundBorderless"
-        android:src="@drawable/baseline_favorite_border_24"
-        android:contentDescription="empty"/>
+        android:src="@drawable/baseline_favorite_border_50"
+        android:tag="not liked"
+        android:contentDescription="@string/empty"/>
 
     <TextView
         android:id="@+id/listing_address"
@@ -51,7 +54,7 @@
         android:layout_marginTop="200dp"
         android:gravity="center_horizontal"
         android:padding="16dp"
-        android:text="3-bed 3 bath With Large Garden in Lyn Valley!"
+        android:text=""
         android:textSize="16sp" />
 
 </FrameLayout>

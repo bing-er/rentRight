@@ -20,7 +20,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.RentRight"
         tools:targetApi="31">
-        <!--        android:networkSecurityConfig="@xml/network_security_config"-->
+        <activity
+            android:name=".Views.Activity.ListingDetailActivity"
+            android:exported="false" />
+        <!-- android:networkSecurityConfig="@xml/network_security_config" -->
         <activity
             android:name=".Views.Activity.Login"
             android:exported="false" />
@@ -48,7 +51,6 @@
             <meta-data
                 android:name="android.app.lib_name"
                 android:value="" />
-
         </activity>
 
         <meta-data

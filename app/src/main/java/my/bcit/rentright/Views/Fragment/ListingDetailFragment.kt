@@ -1,20 +1,25 @@
 package my.bcit.rentright.Views.Fragment
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import my.bcit.rentright.Models.Listing.Listing
-import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.R
-import org.w3c.dom.Text
+import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
+import my.bcit.rentright.Utils.CustomToast
+import my.bcit.rentright.Views.Activity.ListingDetailActivity
 
-// Your custom fragment to show listing details
+
 class ListingDetailFragment : Fragment() {
 
     companion object {
@@ -25,7 +30,7 @@ class ListingDetailFragment : Fragment() {
             val fragment = ListingDetailFragment()
             fragment.arguments = Bundle().apply{
                 val gson = Gson()
-                var listingJson = gson.toJson(listing)
+                val listingJson = gson.toJson(listing)
                 putString(ARG_LISTING, listingJson)
             }
             return fragment
@@ -46,16 +51,53 @@ class ListingDetailFragment : Fragment() {
         val listing :Listing? = listingJson?.let { json ->
             gson.fromJson(json, listingType)}
 
-        val price: TextView = view.findViewById(R.id.listing_price)
+        val rent: TextView = view.findViewById(R.id.listing_price)
         val address: TextView = view.findViewById(R.id.listing_address)
+        val image: ImageView = view.findViewById(R.id.listing_image)
+        val like: ImageButton = view.findViewById(R.id.listing_like_button)
 
-
+        if (listing != null) {
+            setViews(rent, address, like,  image, listing)
+            setImage(image, listing.images[1], requireContext())
+        } else {
+            CustomToast(requireContext(), "no listing info", "red")
+        }
 
     }
 
-    private fun setImage(slot: ImageView) {
+    private fun setImage(image: ImageView, url: String, context:Context ) {
+        Glide.with(this)
+            .load(url)
+            .apply(RequestOptions().override(500, 500))
+            .into(image)
 
 
     }
+    private fun setViews(rent:TextView, address:TextView, like:ImageButton, image:ImageView, listing:Listing) {
+        rent.text = "$${listing.rent}"
+        address.text = listing.address
+        like.setOnClickListener{
+            if (like.tag == "not liked" ) {
+                like.setImageResource(R.drawable.baseline_favorite_50)
+                like.tag = "liked"
+            } else {
+                like.setImageResource(R.drawable.baseline_favorite_border_50)
+                like.tag = "not liked"
+            }
+                //TODO: add call to ListModelView
+        }
+        image.setOnClickListener{
+            var bundle = Bundle().apply {
+                val gson = Gson()
+                val listingsJson = gson.toJson(listing)
+                putString("listing_json", listingsJson)
+            }
+            val intent = Intent(requireContext(), ListingDetailActivity::class.java)
+            intent.putExtra("listing", bundle)
+            startActivity(intent)
 
+
+        }
+
+    }
 }

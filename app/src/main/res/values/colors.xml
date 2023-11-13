@@ -9,4 +9,5 @@
     <color name="white">#FFFFFFFF</color>
     <color name="background">#dddddd</color>
     <color name="box_stroke_color">#E0E0E0</color>
+    <color name="red">#b72626</color>
 </resources>
