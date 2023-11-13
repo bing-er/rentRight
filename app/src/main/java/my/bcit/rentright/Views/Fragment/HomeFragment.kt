@@ -11,6 +11,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLngBounds
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
@@ -36,8 +37,6 @@ class HomeFragment : Fragment() {
         }
         listings = listingResponses?.map{it.toListing()}?: emptyList()
 
-
-
     }
 
 
@@ -56,15 +55,27 @@ class HomeFragment : Fragment() {
             .add(R.id.search_fragment_container, searchFragment)
             .commit()
 
+
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment?.getMapAsync { googleMap ->
+        mapFragment?.getMapAsync{ googleMap ->
             addMarkers(googleMap)
+            googleMap.setOnMarkerClickListener { marker ->
+                val listing = findListingByMarker(marker)
+                listing?.let{
+                    showListingDetailFragment(it)
+                }
+                true
+
+            }
+            googleMap.setOnMapClickListener {
+                closeListingDetailFragment()
+            }
+
             googleMap.setOnMapLoadedCallback {
                 val bounds = LatLngBounds.builder()
                 listings?.forEach { bounds.include(it.latLng) }
                 googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
             }
-
         }
 
     }
@@ -78,6 +89,28 @@ class HomeFragment : Fragment() {
                     .position(listing.latLng)
                     .snippet(listing.description)
             )
+        }
+    }
+
+    private fun findListingByMarker(marker: Marker):Listing?{
+        return listings.find { it.latLng == marker.position }
+
+    }
+
+    private fun showListingDetailFragment(listing: Listing) {
+        val listingDetailFragment = ListingDetailFragment.newInstance(listing)
+        childFragmentManager.beginTransaction()
+            .replace(R.id.listing_detail_container, listingDetailFragment)
+            .addToBackStack(null)
+            .commit()
+    }
+
+    private fun closeListingDetailFragment() {
+        val fragment = childFragmentManager.findFragmentById(R.id.listing_detail_container)
+        if (fragment != null) {
+            childFragmentManager.beginTransaction()
+                .remove(fragment)
+                .commit()
         }
     }
 }
