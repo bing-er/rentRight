@@ -9,8 +9,10 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.material.button.MaterialButton
 import com.google.gson.JsonObject
+import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.R
 import my.bcit.rentright.Network.RentRightRetrofit
 import my.bcit.rentright.ViewModels.ListingViewModel
@@ -20,8 +22,7 @@ import retrofit2.Retrofit
 class SearchComponentFragment : Fragment() {
         private lateinit var searchBtn:MaterialButton
         private lateinit var searchValueEditText: EditText
-        //private var rentrofit = RentRightRetrofit.getInstance()
-        private var listViewModel = ListingViewModel()
+        private val listingViewModel: ListingViewModel by viewModels()
 
 
 
@@ -36,6 +37,7 @@ class SearchComponentFragment : Fragment() {
         searchBtn.setOnClickListener {
             search()
         }
+
         return view
     }
 
@@ -47,19 +49,25 @@ class SearchComponentFragment : Fragment() {
 
         val autoCompleteTextView = view.findViewById<AutoCompleteTextView>(R.id.actv_search_param)
         autoCompleteTextView.setAdapter(adapter)
+
     }
 
     private fun search() {
         val searchValue = searchValueEditText.text.toString().trim()
         if (searchValue.isNotBlank()){
-//            val searchCriteria = JsonObject().apply{
-//                addProperty("location.city", searchValue)
-//            }
-            listViewModel.searchListing("location.city", searchValue, requireContext())
+//
+            listingViewModel.searchListing("location.city", searchValue, requireContext())
 
         }
 
     }
+
+//    private fun passToMapFragment(results: List<ListingResponse>) {
+//        var homeFragment = HomeFragment().apply{
+//
+//        }
+//
+//    }
 
 
 }

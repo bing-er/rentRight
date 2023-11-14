@@ -22,6 +22,7 @@ class ListingViewModel: ViewModel() {
     private var retrofit: Retrofit? = RentRightRetrofit.getInstance()
     private val service: ListingAPI? = retrofit?.create(ListingAPI::class.java)
     val allListings: MutableLiveData<List<ListingResponse>?> = MutableLiveData()
+    val searchListingsResult: MutableLiveData<List<ListingResponse>?> = MutableLiveData()
 
     init {
         getAllListings()
@@ -54,6 +55,11 @@ class ListingViewModel: ViewModel() {
 
     }
 
+    fun refreshListings() {
+        getAllListings()
+    }
+
+
     fun searchListing(searchField: String, searchValue: String, context: Context) {
         val searchCriteria = JsonObject().apply {
             addProperty(searchField, searchValue)
@@ -67,11 +73,13 @@ class ListingViewModel: ViewModel() {
                 if (response.isSuccessful) {
 
                     val listingResponse = response.body() ?: emptyList()
-                    // TODO: 更新UI或适配器
-                    Log.i("response body", listingResponse[0].location.toString())
+
+                    searchListingsResult.postValue(listingResponse)
+                    Log.i("search result", listingResponse[0].category.toString())
+
 
                 } else {
-
+                    searchListingsResult.postValue(emptyList())
                     Log.e("SearchFragment", "Error: ${response.errorBody()?.string()}")
                 }
             }

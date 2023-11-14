@@ -6,7 +6,9 @@ import android.view.ViewGroup
 import my.bcit.rentright.R
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.SupportMapFragment
@@ -18,6 +20,7 @@ import com.google.gson.reflect.TypeToken
 import my.bcit.rentright.Models.Listing.Listing
 import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.Models.Listing.toListing
+import my.bcit.rentright.ViewModels.ListingViewModel
 import my.bcit.rentright.Views.Activity.place.Place
 import my.bcit.rentright.Views.Activity.place.PlacesReader
 
@@ -25,6 +28,8 @@ import my.bcit.rentright.Views.Activity.place.PlacesReader
 class HomeFragment : Fragment() {
 
     private lateinit var listings: List<Listing>
+    private lateinit var searchResult:  List<Listing>
+    private val listingViewModel: ListingViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +63,7 @@ class HomeFragment : Fragment() {
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
         mapFragment?.getMapAsync{ googleMap ->
-            addMarkers(googleMap)
+            addMarkers(googleMap, listings)
             googleMap.setOnMarkerClickListener { marker ->
                 val listing = findListingByMarker(marker)
                 listing?.let{
@@ -78,10 +83,24 @@ class HomeFragment : Fragment() {
             }
         }
 
+        listingViewModel.searchListingsResult.observe(viewLifecycleOwner) { searchResult ->
+            searchResult?.let {results ->
+                run {
+                    listings = results.map { it.toListing() }
+                }
+                mapFragment?.getMapAsync { googleMap ->
+                    googleMap.clear()
+                    addMarkers(googleMap, listings)
+                }
+
+            }
+
+        }
+
     }
 
 
-    private fun addMarkers(googleMap: GoogleMap) {
+    private fun addMarkers(googleMap: GoogleMap, listings: List<Listing>) {
         listings?.forEach { listing ->
             googleMap.addMarker(
                 MarkerOptions()

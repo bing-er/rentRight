@@ -19,13 +19,13 @@ import my.bcit.rentright.ViewModels.ListingViewModel
 class Landing : AppCompatActivity() {
 
     private lateinit var binding: ActivityLandingBinding
-    private lateinit var listingAPI: ListingAPI
-    private lateinit var retrofit: Retrofit
+//    private lateinit var listingAPI: ListingAPI
+//    private lateinit var retrofit: Retrofit
     private lateinit var bundle: Bundle
     private val listingViewModel: ListingViewModel by viewModels()
     override fun onCreate(savedInstanceState: Bundle?) {
-        retrofit = RentRightRetrofit.getInstance()
-        listingAPI = retrofit.create(ListingAPI::class.java)
+//        retrofit = RentRightRetrofit.getInstance()
+//        listingAPI = retrofit.create(ListingAPI::class.java)
         super.onCreate(savedInstanceState)
        // fetchListings(this)
         binding = ActivityLandingBinding.inflate(layoutInflater)
@@ -41,25 +41,25 @@ class Landing : AppCompatActivity() {
 
         }
 
-    private fun fetchListings(context: Context) {
-        CoroutineScope(Dispatchers.Main).launch {
-            if (!::listingAPI.isInitialized) {
-                listingAPI = retrofit.create(ListingAPI::class.java)
-            }
-            val response: Response<List<ListingResponse>> = withContext(Dispatchers.IO) {
-                listingAPI.getAllListings()
-            }
-            if (response.isSuccessful){
-                val listings = response.body() ?: emptyList()
-
-                navigateToHome(listings)
-
-            } else {
-                CustomToast(context, "Sorry, Something Goes Wrong!", "RED").show()
-
-            }
-        }
-    }
+//    private fun fetchListings(context: Context) {
+//        CoroutineScope(Dispatchers.Main).launch {
+//            if (!::listingAPI.isInitialized) {
+//                listingAPI = retrofit.create(ListingAPI::class.java)
+//            }
+//            val response: Response<List<ListingResponse>> = withContext(Dispatchers.IO) {
+//                listingAPI.getAllListings()
+//            }
+//            if (response.isSuccessful){
+//                val listings = response.body() ?: emptyList()
+//
+//                navigateToHome(listings)
+//
+//            } else {
+//                CustomToast(context, "Sorry, Something Goes Wrong!", "RED").show()
+//
+//            }
+//        }
+//    }
 
     private fun navigateToHome(listings: List<ListingResponse>){
 
