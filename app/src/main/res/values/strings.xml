@@ -26,4 +26,9 @@
     <string name="discover_your_dream_place_to_live">Discover your dream place to live</string>
     <string name="find_your_perfect_stay">Find Your Perfect Stay</string>
     <string name="empty">empty</string>
+    <string name="home">Home</string>
+    <string name="refresh">Refresh</string>
+    <string name="search">Search</string>
+    <string name="favorite">Favorite</string>
+    <string name="profile">Profile</string>
 </resources>

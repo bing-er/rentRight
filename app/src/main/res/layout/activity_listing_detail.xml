@@ -49,16 +49,7 @@
                         android:paddingTop="20dp"
                         style="@style/Widget.AppCompat.ActionButton.CloseMode" />
 
-                    <ImageButton
-                        android:id="@+id/shareButton"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:background="?attr/selectableItemBackgroundBorderless"
-                        android:contentDescription="@string/empty"
-                        android:src="@drawable/baseline_share_50"
-                        android:layout_gravity="end"
-                        style="@style/Widget.AppCompat.ActionButton" />
+
 
                 </androidx.appcompat.widget.Toolbar>
 
@@ -88,14 +79,14 @@
 
             <!-- Address Section -->
             <TextView
-                android:layout_margin="15dp"
                 android:id="@+id/addressTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Address"
+                android:text="2355 Madison Ave"
+                android:textColor="#757575"
                 android:gravity="center"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline4"
-                android:layout_marginBottom="8dp"/>
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                android:layout_margin="10dp"/>
 
             <!-- City, State, and Zipcode Section -->
             <LinearLayout
@@ -111,6 +102,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="2"
                     android:text="City"
+
                     android:gravity="start"
                     android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
                     android:layout_marginEnd="8dp"/>
@@ -123,7 +115,7 @@
                     android:layout_weight="1"
                     android:text="State"
                     android:gravity="center"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
                     android:layout_marginEnd="8dp"/>
 
                 <TextView
@@ -134,7 +126,7 @@
                     android:layout_weight="1"
                     android:text="Zipcode"
                     android:gravity="end"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"/>
+                    android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"/>
             </LinearLayout>
             <TextView
                 android:id="@+id/descriptionTextView"

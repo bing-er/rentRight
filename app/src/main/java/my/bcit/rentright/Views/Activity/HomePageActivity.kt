@@ -39,7 +39,7 @@ class HomePageActivity : AppCompatActivity() {
                     }
                 }
 
-                R.id.nav_notifications -> {
+                R.id.nav_refresh -> {
                     selectedFragment = NotificationFragment()
                 }
 

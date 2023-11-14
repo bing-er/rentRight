@@ -24,7 +24,6 @@ class ListingDetailFragment : Fragment() {
 
     companion object {
         private const val ARG_LISTING = "listing"
-
         fun newInstance(listing: Listing): ListingDetailFragment {
 
             val fragment = ListingDetailFragment()
@@ -52,30 +51,29 @@ class ListingDetailFragment : Fragment() {
             gson.fromJson(json, listingType)}
 
         val rent: TextView = view.findViewById(R.id.listing_price)
-        val address: TextView = view.findViewById(R.id.listing_address)
+        val title: TextView = view.findViewById(R.id.listing_address)
         val image: ImageView = view.findViewById(R.id.listing_image)
         val like: ImageButton = view.findViewById(R.id.listing_like_button)
 
         if (listing != null) {
-            setViews(rent, address, like,  image, listing)
-            setImage(image, listing.images[1], requireContext())
+            setViews(rent, title, like,  image, listing)
+            setImage(image, listing.images[1])
         } else {
             CustomToast(requireContext(), "no listing info", "red")
         }
 
     }
 
-    private fun setImage(image: ImageView, url: String, context:Context ) {
+    private fun setImage(image: ImageView, url: String ) {
         Glide.with(this)
             .load(url)
             .apply(RequestOptions().override(500, 500))
             .into(image)
 
-
     }
-    private fun setViews(rent:TextView, address:TextView, like:ImageButton, image:ImageView, listing:Listing) {
+    private fun setViews(rent:TextView, title:TextView, like:ImageButton, image:ImageView, listing:Listing) {
         rent.text = "$${listing.rent}"
-        address.text = listing.address
+        title.text = listing.title
         like.setOnClickListener{
             if (like.tag == "not liked" ) {
                 like.setImageResource(R.drawable.baseline_favorite_50)
