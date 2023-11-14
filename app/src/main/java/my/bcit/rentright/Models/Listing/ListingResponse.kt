@@ -3,12 +3,13 @@ package my.bcit.rentright.Models.Listing
 import com.google.android.gms.maps.model.LatLng
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import my.bcit.rentright.Models.User
 
 
 data class ListingResponse(
     @SerializedName("publisher")
     @Expose
-    var publisher: String? = null,
+    var publisher: User? = null,
 
     @SerializedName("title")
     @Expose
@@ -36,7 +37,7 @@ data class ListingResponse(
 
 
 
-) {
+    ) {
     data class Location(
         @SerializedName("lat")
         @Expose
@@ -64,8 +65,14 @@ data class ListingResponse(
     )
 }
 
+
 fun ListingResponse.toListing(): Listing = Listing(
-    publisher = publisher ?: "",
+    publisherID = publisher?.id?:"",
+    publisherName = publisher?.username?:"",
+    publisherEmail = publisher?.useremail?:"",
+    publisherPhone = publisher?.phone?:"",
+    publisherFavorite = publisher?.favorites?: emptyList(),
+
     title = title ?: "",
     images = images ?: emptyList(),
     description = description ?: "",

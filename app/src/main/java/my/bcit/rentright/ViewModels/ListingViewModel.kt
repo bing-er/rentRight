@@ -23,30 +23,30 @@ class ListingViewModel: ViewModel() {
     private val service: ListingAPI? = retrofit?.create(ListingAPI::class.java)
     val allListings: MutableLiveData<List<ListingResponse>?> = MutableLiveData()
 
-//    init {
-//        getAllListings()
-//    }
+    init {
+        getAllListings()
+    }
 
-//    private fun getAllListings() {
-//        viewModelScope.launch {
-//            try {
-//                val response = service?.getAllListings()
-//                if (response!!.isSuccessful) {
-//                    allListings.postValue(response!!.body())
-//                } else {
-//                    allListings.postValue(null)
-//                    Log.e(
-//                        "ListingViewModel",
-//                        "Error fetching listings: ${response.errorBody()?.string()}"
-//                    )
-//                }
-//            } catch (e: Exception) {
-//
-//                allListings.postValue(null)
-//                Log.e("ListingViewModel", "Exception fetching listings", e)
-//            }
-//        }
-//    }
+    private fun getAllListings() {
+        viewModelScope.launch {
+            try {
+                val response = service?.getAllListings()
+                if (response!!.isSuccessful) {
+                    allListings.postValue(response!!.body())
+                } else {
+                    allListings.postValue(null)
+                    Log.e(
+                        "ListingViewModel",
+                        "Error fetching listings: ${response.errorBody()?.string()}"
+                    )
+                }
+            } catch (e: Exception) {
+
+                allListings.postValue(null)
+                Log.e("ListingViewModel", "Exception fetching listings", e)
+            }
+        }
+    }
 
 
     fun getAllListings(context:Context) {

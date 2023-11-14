@@ -27,17 +27,17 @@ class Landing : AppCompatActivity() {
         retrofit = RentRightRetrofit.getInstance()
         listingAPI = retrofit.create(ListingAPI::class.java)
         super.onCreate(savedInstanceState)
-        fetchListings(this)
+       // fetchListings(this)
         binding = ActivityLandingBinding.inflate(layoutInflater)
         setContentView(binding.root)
-//        listingViewModel.allListings.observe(this) { listings ->
-//            listings?.let{
-//                navigateToHome(it)
-//            } ?:run {
-//                CustomToast(this, "Sorry, Something Goes Wrong!", "RED").show()
-//            }
-//
-//        }
+        listingViewModel.allListings.observe(this) { listings ->
+            listings?.let{
+                navigateToHome(it)
+            } ?:run {
+                CustomToast(this, "Sorry, Something Goes Wrong!", "RED").show()
+            }
+
+        }
 
         }
 

@@ -3,7 +3,11 @@ package my.bcit.rentright.Models.Listing
 import com.google.android.gms.maps.model.LatLng
 
 data class Listing(
-    val publisher: String,
+    val publisherID: String,
+    val publisherName: String,
+    val publisherEmail: String,
+    val publisherPhone: String,
+    val publisherFavorite: List<String>,
     val title: String,
     val rent: Int,
     val images: List<String>,
