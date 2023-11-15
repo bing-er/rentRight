@@ -96,7 +96,6 @@ class ListingViewModel: ViewModel() {
 
             override fun onFailure(call: Call<List<ListingResponse>>, t: Throwable) {
 
-               CustomToast(context, "Something wrong with the network", "red")
             }
         })
 

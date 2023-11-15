@@ -14,13 +14,14 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
-
 import my.bcit.rentright.Network.RentRightRetrofit
 import my.bcit.rentright.Utils.*
 import my.bcit.rentright.Network.UserAPI
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.coroutines.CoroutineScope
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import my.bcit.rentright.Models.User
 
 
@@ -29,9 +30,21 @@ class UserViewModel: ViewModel() {
     private val service: UserAPI? = retrofit?.create(UserAPI::class.java)
     private val statusMessage = MutableLiveData<String>()
     private val getReady = GetReady()
-    val user :MutableLiveData<User> = MutableLiveData()
-    val userFavorite: MutableLiveData<String> = MutableLiveData()
+    val currentUser = MutableLiveData<User?>()
     private lateinit var sharedPreferences: SharedPreferences
+
+    init {
+        checkCurrentUser()
+    }
+
+    // 刷新当前用户的状态
+    fun checkCurrentUser() {
+        viewModelScope.launch {
+            val user = getCurrentUser()
+            currentUser.postValue(user)
+        }
+    }
+
     fun login(email: TextInputEditText, pwd:TextInputEditText, context:Context, activity:Activity) {
 
         val userJson = JsonObject().apply {
@@ -46,11 +59,9 @@ class UserViewModel: ViewModel() {
                     if (!body.isNullOrEmpty()) {
                         val userData = JsonParser.parseString(body).asJsonObject
 
-                        Log.i("DataBody",  body.toString())
 
                         storeUserData(userData, context)
 
-                        CustomToast(context, "Login Successful!","GREEN").show()
                         getReady.goToHomePage(context, activity)
                         statusMessage.value = "Sign in successful"
 
@@ -59,13 +70,13 @@ class UserViewModel: ViewModel() {
                 else {
                     Log.e("code", response.code().toString())
                     Log.e("Message :",  response.body().toString())
-                    CustomToast(context, "Email or password is incorrect!","RED").show()
+
                 }
             }
 
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
                 Log.e("Error on Login", t.message.toString())
-                CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
+
 
             }
         })
@@ -80,7 +91,6 @@ class UserViewModel: ViewModel() {
             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                 if (response.code()==200){
-                    CustomToast(context, "Success! you've joined RentRight","GREEN").show()
 
                     Handler(Looper.getMainLooper()).postDelayed({
                         getReady.goToHomePage(context,activity) //GoTo Page Login
@@ -90,11 +100,10 @@ class UserViewModel: ViewModel() {
 
                     Log.i("response code", response.code().toString())
                     Log.i("error body", response.body().toString())
-                    CustomToast(context, "This Email Already Exist!","RED").show()
+
                 }
             }
             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-                CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
 
             }
         })
@@ -115,22 +124,22 @@ class UserViewModel: ViewModel() {
         }
     }
 
-     fun logout(context: Context) {
+     fun logout() {
          service?.logout()?.enqueue(object : Callback<JsonObject> {
              override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                  if (response.code() == 200) {
-                     CustomToast(context, "You have successfully logged out !","Green").show()
+
 
                  } else {
-                     CustomToast(context, "You have not signed in !","Red").show()
+
                  }
 
              }
 
              override fun onFailure(call: Call<JsonObject>, t: Throwable) {
 
-                 CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
+
              }
          })
 
