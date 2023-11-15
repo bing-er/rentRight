@@ -2,7 +2,6 @@ package my.bcit.rentright.ViewModels
 
 import android.content.Context
 import android.util.Log
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import my.bcit.rentright.Network.ListingAPI
 import androidx.lifecycle.ViewModel
@@ -33,7 +32,6 @@ class ListingViewModel: ViewModel() {
     val closeDetailEvent: MutableLiveData<Boolean?>
         get() = _closeDetailEvent
 
-    // Method to call from the SearchComponentFragment when you want to close the detail fragment
     fun onCloseDetailRequested() {
         _closeDetailEvent.value = true
     }
@@ -63,11 +61,6 @@ class ListingViewModel: ViewModel() {
         }
     }
 
-
-    fun getAllListings(context:Context) {
-
-
-    }
 
     fun refreshListings() {
         getAllListings()

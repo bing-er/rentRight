@@ -2,6 +2,7 @@ package my.bcit.rentright.Views.Activity
 
 
 import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -26,7 +27,6 @@ class ListingDetailActivity : AppCompatActivity() {
     private lateinit var description: TextView
     private lateinit var image : ImageView
     private lateinit var backBtn: ImageButton
-    private lateinit var shareBtn: ImageButton
     private lateinit var callBtn: Button
     private lateinit var emailBtn: Button
 
@@ -68,8 +68,10 @@ class ListingDetailActivity : AppCompatActivity() {
         state.text = listing.state
         zipcode.text = listing.zip
         description.text = listing.description
-        setImage(image, listing.images[1])
+        setImage(image, listing.images[0])
         setGoBackBtn(backBtn)
+        setCallBtn(callBtn)
+        setSentEmailBtn(emailBtn)
 
     }
 
@@ -78,6 +80,30 @@ class ListingDetailActivity : AppCompatActivity() {
             intent = Intent(this, HomePageActivity::class.java)
             startActivity(intent)
             finish()
+        }
+    }
+
+    private fun setSentEmailBtn(emailBtn : Button) {
+        val emailIntent = Intent(Intent.ACTION_SENDTO).apply {
+            data = Uri.parse("mailto:")
+            putExtra(Intent.EXTRA_EMAIL, arrayOf(listing.publisherEmail))
+            putExtra(Intent.EXTRA_SUBJECT, "View your property at ${listing.address}`request")
+            putExtra(Intent.EXTRA_TEXT, "content")
+        }
+        if (emailIntent.resolveActivity(packageManager) != null) {
+            startActivity(emailIntent)
+        }
+    }
+
+    private fun setCallBtn(callBtn: Button) {
+        callBtn.setOnClickListener{
+            val phone = listing.publisherPhone
+            val intent = Intent(Intent.ACTION_DIAL).apply{
+                data = Uri.parse("tel:$phone")
+            }
+            if (intent.resolveActivity(packageManager) != null) {
+                startActivity(intent)
+            }
         }
     }
 

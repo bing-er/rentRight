@@ -63,7 +63,6 @@ class SearchComponentFragment : Fragment() {
 
     }
     private fun triggeringDetailClose() {
-        // When you want to close the detail fragment from the search component
         listingViewModel.onCloseDetailRequested()
     }
 
