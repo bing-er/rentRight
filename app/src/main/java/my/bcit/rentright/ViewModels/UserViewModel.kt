@@ -28,6 +28,8 @@ class UserViewModel: ViewModel() {
     private val service: UserAPI? = retrofit?.create(UserAPI::class.java)
     private val statusMessage = MutableLiveData<String>()
     private val getReady = GetReady()
+    val user :MutableLiveData<User> = MutableLiveData()
+    val userFavorite: MutableLiveData<String> = MutableLiveData()
     private lateinit var sharedPreferences: SharedPreferences
     fun login(email: TextInputEditText, pwd:TextInputEditText, context:Context, activity:Activity) {
 

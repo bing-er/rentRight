@@ -46,6 +46,7 @@ class ListingViewModel: ViewModel() {
                 val response = service?.getAllListings()
                 if (response!!.isSuccessful) {
                     allListings.postValue(response!!.body())
+                   // Log.i("number of listings", response!!.body()!!.size.toString())
                 } else {
                     allListings.postValue(null)
                     Log.e(

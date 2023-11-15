@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import my.bcit.rentright.R
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
@@ -41,6 +42,7 @@ class HomeFragment : Fragment() {
             gson.fromJson(json, listingsType)
         }
         listings = listingResponses?.map{it.toListing()}?: emptyList()
+
 
     }
 
@@ -99,11 +101,10 @@ class HomeFragment : Fragment() {
 
     private fun addMarkers(googleMap: GoogleMap, listings: List<Listing>) {
         listings?.forEach { listing ->
+            Log.i("latLIng", listing.latLng.toString())
             googleMap.addMarker(
                 MarkerOptions()
-                    .title("${listing.address} ($${listing.rent}/Monthly)")
                     .position(listing.latLng)
-                    .snippet(listing.description)
             )
         }
     }
@@ -113,6 +114,8 @@ class HomeFragment : Fragment() {
 
     }
 
+
+
     private fun showListingDetailFragment(listing: Listing) {
         val listingDetailFragment = ListingDetailFragment.newInstance(listing)
         childFragmentManager.beginTransaction()
@@ -120,8 +123,7 @@ class HomeFragment : Fragment() {
             .addToBackStack(null)
             .commit()
     }
-
-     fun closeListingDetailFragment() {
+     private fun closeListingDetailFragment() {
         val fragment = childFragmentManager.findFragmentById(R.id.listing_detail_container)
         if (fragment != null) {
             childFragmentManager.beginTransaction()
