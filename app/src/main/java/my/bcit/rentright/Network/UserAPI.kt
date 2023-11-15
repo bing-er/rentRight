@@ -3,6 +3,7 @@ package my.bcit.rentright.Network
 import com.google.gson.JsonObject
 import my.bcit.rentright.Models.User
 import retrofit2.Call
+import retrofit2.Response
 import retrofit2.http.*
 import java.util.*
 import kotlin.collections.HashMap
@@ -12,7 +13,7 @@ interface UserAPI {
     fun login(@Body data:JsonObject): Call<JsonObject>
 
     @POST("user/logout")
-    fun logout(@Body user:JsonObject): Call<JsonObject>
+    fun logout(): Call<JsonObject>
 
 
     @POST("user/register")
@@ -20,7 +21,7 @@ interface UserAPI {
 
 
     @GET("user/current")
-    fun getCurrent(): Call<User>
+    suspend fun getCurrent(): Response<User>
 
 
     @PATCH("user/current")

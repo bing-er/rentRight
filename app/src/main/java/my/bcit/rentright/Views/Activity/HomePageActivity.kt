@@ -1,14 +1,15 @@
 package my.bcit.rentright.Views.Activity
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.gson.Gson
-import my.bcit.rentright.Models.Listing.Listing
+import kotlinx.coroutines.launch
 import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.R
 import my.bcit.rentright.Utils.CustomToast
@@ -16,7 +17,6 @@ import my.bcit.rentright.ViewModels.ListingViewModel
 import my.bcit.rentright.ViewModels.UserViewModel
 import my.bcit.rentright.Views.Fragment.FavFragment
 import my.bcit.rentright.Views.Fragment.HomeFragment
-import my.bcit.rentright.Views.Fragment.NotificationFragment
 import my.bcit.rentright.Views.Fragment.ProfileFragment
 import my.bcit.rentright.Views.Fragment.SearchFragment
 
@@ -33,6 +33,7 @@ class HomePageActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
         listingViewModel.allListings.observe(this) { listings ->
+            Log.i("listings number ", listings?.size.toString())
             listings?.let {
                 updateUIWithListings(it)
             } ?: run {
@@ -64,13 +65,32 @@ class HomePageActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_fav -> {
-                    userViewModel.getCurrentUser(this, this)
-                    selectedFragment = FavFragment()
+                    lifecycleScope.launch {
+                        val user = userViewModel.getCurrentUser()
+                        if (user != null) {
+
+                            selectedFragment = FavFragment()
+
+                        } else {
+                            val intent = Intent(this@HomePageActivity, Login::class.java)
+                            startActivity(intent)
+                        }
+                    }
+
                 }
 
                 R.id.nav_profile -> {
-                    userViewModel.getCurrentUser(this, this)
-                    selectedFragment = ProfileFragment()
+                     lifecycleScope.launch {
+                        val user = userViewModel.getCurrentUser()
+                        if (user != null) {
+
+                            selectedFragment = FavFragment()
+
+                        } else {
+                            val intent = Intent(this@HomePageActivity, Login::class.java)
+                            startActivity(intent)
+                        }
+                    }
                 }
             }
             selectedFragment?.let{
@@ -80,7 +100,7 @@ class HomePageActivity : AppCompatActivity() {
 
             }
 
-            true
+             true
         }
 
     }

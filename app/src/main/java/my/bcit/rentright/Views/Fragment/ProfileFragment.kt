@@ -62,7 +62,8 @@ class ProfileFragment : Fragment() {
 
     private fun setLogoutBtn(logoutBtn:Button) {
         logoutBtn.setOnClickListener{
-            userViewModel.getCurrentUser(requireContext(), requireActivity())
+            userViewModel.logout(requireContext())
+
         }
     }
 

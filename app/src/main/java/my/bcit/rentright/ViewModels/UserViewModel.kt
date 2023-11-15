@@ -20,6 +20,7 @@ import my.bcit.rentright.Utils.*
 import my.bcit.rentright.Network.UserAPI
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.coroutines.CoroutineScope
 import my.bcit.rentright.Models.User
 
 
@@ -99,22 +100,44 @@ class UserViewModel: ViewModel() {
         })
     }
 
-    fun getCurrentUser(context: Context, activity: Activity)  {
-        service?.getCurrent()?.enqueue(object : Callback<User> {
-            override fun onResponse(call: Call<User>, response: Response<User>) {
-                Log.i("user?", response.body().toString())
-                if(response.code()==403 && response.body() != null){
-                    getReady.goToLogin(context, activity )
-                }
+    suspend fun getCurrentUser(): User? {
+        return try {
+            val response = service?.getCurrent()
+            if (response?.isSuccessful == true) {
+                response.body()
+            } else {
 
+                null
             }
+        } catch (e: Exception) {
 
-            override fun onFailure(call: Call<User>, t: Throwable) {
-                CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
-            }
-
-        })
+            null
+        }
     }
+
+     fun logout(context: Context) {
+         service?.logout()?.enqueue(object : Callback<JsonObject> {
+             override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
+
+                 if (response.code() == 200) {
+                     CustomToast(context, "You have successfully logged out !","Green").show()
+
+                 } else {
+                     CustomToast(context, "You have not signed in !","Red").show()
+                 }
+
+             }
+
+             override fun onFailure(call: Call<JsonObject>, t: Throwable) {
+
+                 CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
+             }
+         })
+
+         }
+
+
+
 
     private fun storeUserData(userData:JsonObject, context:Context)  {
         if (userData.get("success").asBoolean){
