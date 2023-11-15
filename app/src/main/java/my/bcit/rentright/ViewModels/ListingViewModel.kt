@@ -2,6 +2,7 @@ package my.bcit.rentright.ViewModels
 
 import android.content.Context
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import my.bcit.rentright.Network.ListingAPI
 import androidx.lifecycle.ViewModel
@@ -23,9 +24,22 @@ class ListingViewModel: ViewModel() {
     private val service: ListingAPI? = retrofit?.create(ListingAPI::class.java)
     val allListings: MutableLiveData<List<ListingResponse>?> = MutableLiveData()
     val searchListingsResult: MutableLiveData<List<ListingResponse>?> = MutableLiveData()
+    private val _closeDetailEvent = MutableLiveData<Boolean?>()
 
     init {
         getAllListings()
+    }
+
+    val closeDetailEvent: MutableLiveData<Boolean?>
+        get() = _closeDetailEvent
+
+    // Method to call from the SearchComponentFragment when you want to close the detail fragment
+    fun onCloseDetailRequested() {
+        _closeDetailEvent.value = true
+    }
+
+    fun onCloseDetailRequestedComplete() {
+        _closeDetailEvent.value = null
     }
 
     private fun getAllListings() {
@@ -71,11 +85,12 @@ class ListingViewModel: ViewModel() {
                 response: Response<List<ListingResponse>>
             ) {
                 if (response.isSuccessful) {
-
+                    Log.i("ListingViewModel", "Network call successful")
                     val listingResponse = response.body() ?: emptyList()
 
                     searchListingsResult.postValue(listingResponse)
-                    Log.i("search result", listingResponse[0].category.toString())
+                   // Log.i("search result", listingResponse[0].category.toString())
+                    //Log.i("searchListingResult", searchListingsResult.value?.get(0)?.category.toString())
 
 
                 } else {

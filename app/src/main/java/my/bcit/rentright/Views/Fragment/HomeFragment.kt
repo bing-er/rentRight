@@ -1,6 +1,5 @@
 package my.bcit.rentright.Views.Fragment
 
-
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import my.bcit.rentright.R
@@ -8,6 +7,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -28,8 +28,8 @@ import my.bcit.rentright.Views.Activity.place.PlacesReader
 class HomeFragment : Fragment() {
 
     private lateinit var listings: List<Listing>
-    private lateinit var searchResult:  List<Listing>
-    private val listingViewModel: ListingViewModel by viewModels()
+    //private lateinit var searchResult:  List<Listing>
+    private val listingViewModel: ListingViewModel by activityViewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,26 +62,11 @@ class HomeFragment : Fragment() {
 
 
         val mapFragment = childFragmentManager.findFragmentById(R.id.map) as? SupportMapFragment
-        mapFragment?.getMapAsync{ googleMap ->
+        mapFragment?.getMapAsync { googleMap ->
             addMarkers(googleMap, listings)
-            googleMap.setOnMarkerClickListener { marker ->
-                val listing = findListingByMarker(marker)
-                listing?.let{
-                    showListingDetailFragment(it)
-                }
-                true
-
-            }
-            googleMap.setOnMapClickListener {
-                closeListingDetailFragment()
-            }
-
-            googleMap.setOnMapLoadedCallback {
-                val bounds = LatLngBounds.builder()
-                listings?.forEach { bounds.include(it.latLng) }
-                googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
-            }
+            setMapListener(googleMap)
         }
+
 
         listingViewModel.searchListingsResult.observe(viewLifecycleOwner) { searchResult ->
             searchResult?.let {results ->
@@ -91,13 +76,25 @@ class HomeFragment : Fragment() {
                 mapFragment?.getMapAsync { googleMap ->
                     googleMap.clear()
                     addMarkers(googleMap, listings)
+
+                    val bounds = LatLngBounds.builder()
+                    listings.forEach { bounds.include(it.latLng) }
+                    if (listings.isNotEmpty()) {
+                        googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
+                    }
                 }
 
             }
-
+        }
+        listingViewModel.closeDetailEvent.observe(viewLifecycleOwner) { shouldClose ->
+            if (shouldClose == true) {
+                closeListingDetailFragment()
+                listingViewModel.onCloseDetailRequestedComplete()
+            }
         }
 
     }
+
 
 
     private fun addMarkers(googleMap: GoogleMap, listings: List<Listing>) {
@@ -124,12 +121,32 @@ class HomeFragment : Fragment() {
             .commit()
     }
 
-    private fun closeListingDetailFragment() {
+     fun closeListingDetailFragment() {
         val fragment = childFragmentManager.findFragmentById(R.id.listing_detail_container)
         if (fragment != null) {
             childFragmentManager.beginTransaction()
                 .remove(fragment)
                 .commit()
+        }
+    }
+
+    private fun setMapListener(googleMap: GoogleMap) {
+        googleMap.setOnMarkerClickListener { marker ->
+            val listing = findListingByMarker(marker)
+            listing?.let{
+                showListingDetailFragment(it)
+            }
+            true
+
+        }
+        googleMap.setOnMapClickListener {
+            closeListingDetailFragment()
+        }
+
+        googleMap.setOnMapLoadedCallback {
+            val bounds = LatLngBounds.builder()
+            listings?.forEach { bounds.include(it.latLng) }
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
         }
     }
 }

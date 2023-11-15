@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter
 import android.widget.AutoCompleteTextView
 import android.widget.EditText
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import com.google.android.material.button.MaterialButton
 import com.google.gson.JsonObject
@@ -22,7 +23,7 @@ import retrofit2.Retrofit
 class SearchComponentFragment : Fragment() {
         private lateinit var searchBtn:MaterialButton
         private lateinit var searchValueEditText: EditText
-        private val listingViewModel: ListingViewModel by viewModels()
+        private val listingViewModel: ListingViewModel by activityViewModels()
 
 
 
@@ -35,6 +36,7 @@ class SearchComponentFragment : Fragment() {
         searchValueEditText = view.findViewById(R.id.et_search_value)
 
         searchBtn.setOnClickListener {
+            triggeringDetailClose()
             search()
         }
 
@@ -55,19 +57,15 @@ class SearchComponentFragment : Fragment() {
     private fun search() {
         val searchValue = searchValueEditText.text.toString().trim()
         if (searchValue.isNotBlank()){
-//
             listingViewModel.searchListing("location.city", searchValue, requireContext())
 
         }
 
     }
-
-//    private fun passToMapFragment(results: List<ListingResponse>) {
-//        var homeFragment = HomeFragment().apply{
-//
-//        }
-//
-//    }
+    private fun triggeringDetailClose() {
+        // When you want to close the detail fragment from the search component
+        listingViewModel.onCloseDetailRequested()
+    }
 
 
 }
