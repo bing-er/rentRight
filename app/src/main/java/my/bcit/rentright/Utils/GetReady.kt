@@ -27,4 +27,10 @@ class GetReady {
         activity.finish()
     }
 
+    fun goToLogin(context: Context, activity: Activity) {
+        val intent = Intent(context, Login::class.java)
+        context.startActivity(intent)
+        activity.finish()
+    }
+
 }

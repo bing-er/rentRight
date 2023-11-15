@@ -28,7 +28,7 @@ import my.bcit.rentright.Views.Activity.place.PlacesReader
 class HomeFragment : Fragment() {
 
     private lateinit var listings: List<Listing>
-    //private lateinit var searchResult:  List<Listing>
+    private  var searchResults:  List<Listing> = emptyList()
     private val listingViewModel: ListingViewModel by activityViewModels()
 
 
@@ -71,15 +71,15 @@ class HomeFragment : Fragment() {
         listingViewModel.searchListingsResult.observe(viewLifecycleOwner) { searchResult ->
             searchResult?.let {results ->
                 run {
-                    listings = results.map { it.toListing() }
+                    searchResults = results.map { it.toListing() }
                 }
                 mapFragment?.getMapAsync { googleMap ->
                     googleMap.clear()
-                    addMarkers(googleMap, listings)
+                    addMarkers(googleMap, searchResults)
 
                     val bounds = LatLngBounds.builder()
-                    listings.forEach { bounds.include(it.latLng) }
-                    if (listings.isNotEmpty()) {
+                    searchResults.forEach { bounds.include(it.latLng) }
+                    if (searchResults.isNotEmpty()) {
                         googleMap.moveCamera(CameraUpdateFactory.newLatLngBounds(bounds.build(), 100))
                     }
                 }

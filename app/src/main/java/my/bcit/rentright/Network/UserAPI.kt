@@ -1,6 +1,7 @@
 package my.bcit.rentright.Network
 
 import com.google.gson.JsonObject
+import my.bcit.rentright.Models.User
 import retrofit2.Call
 import retrofit2.http.*
 import java.util.*
@@ -19,7 +20,7 @@ interface UserAPI {
 
 
     @GET("user/current")
-    fun getCurrent(): Call<JsonObject>
+    fun getCurrent(): Call<User>
 
 
     @PATCH("user/current")

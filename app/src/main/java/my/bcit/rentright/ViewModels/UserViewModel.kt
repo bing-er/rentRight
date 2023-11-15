@@ -20,6 +20,7 @@ import my.bcit.rentright.Utils.*
 import my.bcit.rentright.Network.UserAPI
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
+import my.bcit.rentright.Models.User
 
 
 class UserViewModel: ViewModel() {
@@ -93,6 +94,23 @@ class UserViewModel: ViewModel() {
                 CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
 
             }
+        })
+    }
+
+    fun getCurrentUser(context: Context, activity: Activity)  {
+        service?.getCurrent()?.enqueue(object : Callback<User> {
+            override fun onResponse(call: Call<User>, response: Response<User>) {
+                Log.i("user?", response.body().toString())
+                if(response.code()==403 && response.body() != null){
+                    getReady.goToLogin(context, activity )
+                }
+
+            }
+
+            override fun onFailure(call: Call<User>, t: Throwable) {
+                CustomToast(context, "Sorry, Something Goes Wrong!","RED").show()
+            }
+
         })
     }
 

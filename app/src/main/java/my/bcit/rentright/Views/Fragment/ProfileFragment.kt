@@ -11,9 +11,13 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.fragment.app.activityViewModels
+import androidx.fragment.app.findFragment
+import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import my.bcit.rentright.R
+import my.bcit.rentright.ViewModels.UserViewModel
 
 
 class ProfileFragment : Fragment() {
@@ -21,6 +25,8 @@ class ProfileFragment : Fragment() {
     private lateinit var uName: TextView
     private lateinit var uEmail: TextView
     private lateinit var uPhone: TextView
+    private lateinit var logoutBtn: Button
+    private val userViewModel: UserViewModel by viewModels()
 
 
 
@@ -43,6 +49,8 @@ class ProfileFragment : Fragment() {
         uName = requireView().findViewById(R.id.user_name)
         uEmail = requireView().findViewById(R.id.email)
         uPhone = requireView().findViewById(R.id.phone)
+        logoutBtn = requireView().findViewById(R.id.btn_logout)
+        setLogoutBtn(logoutBtn)
         val userName = sharedPreferences.getString("userName", "N/A")
         val userEmail = sharedPreferences.getString("userEmail", "N/A")
         val userPhone = sharedPreferences.getString("userPhone", "N/A")
@@ -50,6 +58,12 @@ class ProfileFragment : Fragment() {
         uEmail.text = userEmail
         uPhone.text = userPhone
 
+    }
+
+    private fun setLogoutBtn(logoutBtn:Button) {
+        logoutBtn.setOnClickListener{
+            userViewModel.getCurrentUser(requireContext(), requireActivity())
+        }
     }
 
 

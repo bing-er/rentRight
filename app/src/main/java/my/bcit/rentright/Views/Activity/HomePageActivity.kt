@@ -13,6 +13,7 @@ import my.bcit.rentright.Models.Listing.ListingResponse
 import my.bcit.rentright.R
 import my.bcit.rentright.Utils.CustomToast
 import my.bcit.rentright.ViewModels.ListingViewModel
+import my.bcit.rentright.ViewModels.UserViewModel
 import my.bcit.rentright.Views.Fragment.FavFragment
 import my.bcit.rentright.Views.Fragment.HomeFragment
 import my.bcit.rentright.Views.Fragment.NotificationFragment
@@ -22,6 +23,7 @@ import my.bcit.rentright.Views.Fragment.SearchFragment
 class HomePageActivity : AppCompatActivity() {
     private lateinit var bottomNavigationView: BottomNavigationView
     private val listingViewModel: ListingViewModel by viewModels()
+    private val userViewModel: UserViewModel by viewModels()
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -62,10 +64,12 @@ class HomePageActivity : AppCompatActivity() {
                 }
 
                 R.id.nav_fav -> {
+                    userViewModel.getCurrentUser(this, this)
                     selectedFragment = FavFragment()
                 }
 
                 R.id.nav_profile -> {
+                    userViewModel.getCurrentUser(this, this)
                     selectedFragment = ProfileFragment()
                 }
             }
