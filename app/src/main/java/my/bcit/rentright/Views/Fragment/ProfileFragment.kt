@@ -17,6 +17,7 @@ import androidx.fragment.app.viewModels
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import my.bcit.rentright.R
+import my.bcit.rentright.Utils.GetReady
 import my.bcit.rentright.ViewModels.UserViewModel
 
 
@@ -27,6 +28,8 @@ class ProfileFragment : Fragment() {
     private lateinit var uPhone: TextView
     private lateinit var logoutBtn: Button
     private val userViewModel: UserViewModel by viewModels()
+    private val getReady = GetReady()
+
 
 
 
@@ -34,7 +37,7 @@ class ProfileFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-    
+
         return inflater.inflate(R.layout.fragment_profile, container, false)
     }
 
@@ -63,6 +66,7 @@ class ProfileFragment : Fragment() {
     private fun setLogoutBtn(logoutBtn:Button) {
         logoutBtn.setOnClickListener{
             userViewModel.logout()
+            getReady.goToHomePage(requireContext(), requireActivity())
 
         }
     }

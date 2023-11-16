@@ -80,7 +80,6 @@ class ListingViewModel: ViewModel() {
                 response: Response<List<ListingResponse>>
             ) {
                 if (response.isSuccessful) {
-                    Log.i("ListingViewModel", "Network call successful")
                     val listingResponse = response.body() ?: emptyList()
 
                     searchListingsResult.postValue(listingResponse)

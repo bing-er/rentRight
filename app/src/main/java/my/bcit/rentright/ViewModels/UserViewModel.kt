@@ -19,7 +19,6 @@ import my.bcit.rentright.Utils.*
 import my.bcit.rentright.Network.UserAPI
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import my.bcit.rentright.Models.User
@@ -37,11 +36,10 @@ class UserViewModel: ViewModel() {
         checkCurrentUser()
     }
 
-    // 刷新当前用户的状态
-    fun checkCurrentUser() {
+    private fun checkCurrentUser() {
         viewModelScope.launch {
             val user = getCurrentUser()
-            currentUser.postValue(user)
+            currentUser.value = user
         }
     }
 
@@ -109,7 +107,7 @@ class UserViewModel: ViewModel() {
         })
     }
 
-    suspend fun getCurrentUser(): User? {
+    private suspend fun getCurrentUser(): User? {
         return try {
             val response = service?.getCurrent()
             if (response?.isSuccessful == true) {
@@ -129,23 +127,20 @@ class UserViewModel: ViewModel() {
              override fun onResponse(call: Call<JsonObject>, response: Response<JsonObject>) {
 
                  if (response.code() == 200) {
+                     currentUser.value = null
+                     Log.i("operation", "logged out")
+                     Log.i("user", currentUser.value.toString())
 
-
-                 } else {
 
                  }
-
              }
 
              override fun onFailure(call: Call<JsonObject>, t: Throwable) {
-
 
              }
          })
 
          }
-
-
 
 
     private fun storeUserData(userData:JsonObject, context:Context)  {
@@ -167,7 +162,6 @@ class UserViewModel: ViewModel() {
                 putString("userID", userID)
 
             }.apply()
-
         }
     }
 

@@ -88,6 +88,7 @@ class HomeFragment : Fragment() {
 
             }
         }
+
         listingViewModel.closeDetailEvent.observe(viewLifecycleOwner) { shouldClose ->
             if (shouldClose == true) {
                 closeListingDetailFragment()
@@ -101,7 +102,6 @@ class HomeFragment : Fragment() {
 
     private fun addMarkers(googleMap: GoogleMap, listings: List<Listing>) {
         listings?.forEach { listing ->
-            //Log.i("latLIng", listing.latLng.toString())
             googleMap.addMarker(
                 MarkerOptions()
                     .position(listing.latLng)

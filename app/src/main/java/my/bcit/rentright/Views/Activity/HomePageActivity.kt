@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.MenuItem
 import androidx.activity.viewModels
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
@@ -34,7 +35,6 @@ class HomePageActivity : AppCompatActivity() {
         bottomNavigationView = findViewById(R.id.bottom_navigation)
 
         listingViewModel.allListings.observe(this) { listings ->
-            Log.i("listings number ", listings?.size.toString())
             listings?.let {
                 updateUIWithListings(it)
             } ?: run {
@@ -42,16 +42,6 @@ class HomePageActivity : AppCompatActivity() {
             }
         }
         setupBottomNav()
-
-//        userViewModel.currentUser.observe(this) { user ->
-//            if (user != null) {
-//                setupBottomNavigation(user, bundle)
-//            } else {
-//                // 用户未登录，跳转到登录界面
-//                val intent = Intent(this@HomePageActivity, Login::class.java)
-//                startActivity(intent)
-//            }
-//        }
 
 
         supportFragmentManager.beginTransaction().replace(R.id.container, HomeFragment()
@@ -83,19 +73,7 @@ class HomePageActivity : AppCompatActivity() {
                 R.id.nav_refresh -> listingViewModel.refreshListings()
                 R.id.nav_search -> switchToFragment(SearchFragment())
                 R.id.nav_fav, R.id.nav_profile -> {
-                    userViewModel.currentUser.observe(this) { user ->
-                        if (user != null) {
-
-                            val fragment =
-                                if (item.itemId == R.id.nav_fav) FavFragment() else ProfileFragment()
-                            switchToFragment(fragment)
-                        } else {
-
-                            navigateToLogin()
-                        }
-
-                        userViewModel.currentUser.removeObservers(this)
-                    }
+                    observeUserForLogin(item)
                 }
             }
             true
@@ -113,65 +91,18 @@ class HomePageActivity : AppCompatActivity() {
             .commit()
     }
 
-//    private fun setupBottomNavigation(user:User, bundle:Bundle?) {
-//        bottomNavigationView.setOnItemSelectedListener { item ->
-//            var selectedFragment: Fragment? = null
-//            when (item.itemId) {
-//                R.id.nav_home -> {
-//                    selectedFragment = HomeFragment().apply {
-//                        arguments = bundle
-//                    }
-//                }
-//
-//                R.id.nav_refresh -> {
-//                    listingViewModel.refreshListings()
-//                }
-//
-//                R.id.nav_search -> {
-//                    selectedFragment = SearchFragment()
-//                }
-//
-//                R.id.nav_fav -> {
-//                    selectedFragment =
-//
-////                    lifecycleScope.launch {
-////                        val user = userViewModel.getCurrentUser()
-////                        if (user != null) {
-////
-////                            selectedFragment = FavFragment()
-////
-////                        } else {
-////                            val intent = Intent(this@HomePageActivity, Login::class.java)
-////                            startActivity(intent)
-////                        }
-////                    }
-//
-//                }
-//
-//                R.id.nav_profile -> {
-//                    lifecycleScope.launch {
-//                        val user = userViewModel.getCurrentUser()
-//                        if (user != null) {
-//
-//                            selectedFragment = FavFragment()
-//
-//                        } else {
-//                            val intent = Intent(this@HomePageActivity, Login::class.java)
-//                            startActivity(intent)
-//                        }
-//                    }
-//                }
-//            }
-//            selectedFragment?.let{
-//                val transaction = supportFragmentManager.beginTransaction()
-//                transaction.replace(R.id.container, selectedFragment!!)
-//                transaction.commit()
-//
-//            }
-//
-//            true
-//        }
-//
-//    }
+    private fun observeUserForLogin(item: MenuItem) {
+        userViewModel.currentUser.observe(this) { user ->
+            if (user == null) {
+                navigateToLogin()
+                userViewModel.currentUser.removeObservers(this)
+            } else {
+                val fragment = if (item.itemId == R.id.nav_fav) FavFragment() else ProfileFragment()
+                switchToFragment(fragment)
+                userViewModel.currentUser.removeObservers(this)
+            }
+        }
+    }
+
 
     }
